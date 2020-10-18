@@ -5,6 +5,7 @@ import tkinter as tk
 import tkmacosx as tkmac
 import numpy as np
 import math
+import pandas as pd
 import cmath as cm
 
 expression = ''
@@ -14,9 +15,14 @@ root.title("BasicCalc")
 root.resizable(0,0)
 root.configure(bg = '#1F2739')
 
+global max_index
+max_index = 0
 
-Entry1 = tk.Entry(width=24, bg='#1F2739', fg='white', borderwidth=0, justify='right', font='Comfortaa 32', highlightbackground='#1F2739')
-Entry1.grid(row = 0, columnspan = 7, ipady=10)
+global cur_index
+cur_index = 0
+
+Entry1 = tk.Entry(width=20, bg='#1F2739', fg='white', borderwidth=0, justify='right', font='Comfortaa 32', highlightbackground='#1F2739')
+Entry1.grid(row = 0, columnspan = 7)
 Entry1.insert(0, '0')
 
 operation_list = ['+','-','*','/']
@@ -214,24 +220,43 @@ def delete():
         Entry1.delete(0, 'end')
         Entry1.insert(0, expression[:-1])
 
+y = []
 #Memory ADD
 def memory_add():
-    global x
+    global dataframe
+    global y
+    global max_index
+    global cur_index
     Entry1.config(state = tk.NORMAL)
-    x = str(Entry1.get())
+    y = y + [str(Entry1.get())]
+    dataframe = pd.DataFrame()
+    dataframe['Memory'] = y
+    print(dataframe)
+    dataframe.to_csv(r'C:\Users\Sharjith\Desktop\Memory_Dataframe.csv')
     Entry1.delete(0, 'end')
+    max_index = max_index + 1
+    cur_index = max_index
+ 
+
 
 #Recall from Memory
 def memory_recall():
-    global x
-    Entry1.config(state = tk.NORMAL)
-    try: x
-    except NameError: x = None
-    if x == None:
+    global memorylist
+    global cur_index
+    global expression
+    expression = str(Entry1.get())
+    memorylist = pd.read_csv(r'C:\Users\Sharjith\Desktop\Memory_Dataframe.csv')
+    if memorylist.empty :
         Entry1.delete(0, 'end')
         Entry1.insert(0, "Error: Empty Memory")
+    elif expression == '0':
+        Entry1.delete(0, 'end')
+        Entry1.insert('end', memorylist.at[cur_index-1,'Memory'])
+        cur_index = cur_index - 1
     else:
-        Entry1.insert('end', x)
+        Entry1.insert('end', memorylist.at[cur_index-1,'Memory'])
+        cur_index = cur_index - 1
+    
 
 #Percentage
 def percentage():
