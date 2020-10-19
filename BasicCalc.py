@@ -1,5 +1,7 @@
-#BasicCalc for OSX
-
+'''
+Author: Hrishikesh Naramparambath
+Basic Calc v1.0
+'''
 
 import tkinter as tk
 import tkmacosx as tkmac
@@ -7,6 +9,10 @@ import numpy as np
 import math
 import pandas as pd
 import cmath as cm
+
+'''import tempfile
+import pathlib
+import platform'''
 
 expression = ''
 
@@ -20,6 +26,11 @@ max_index = 0
 
 global cur_index
 cur_index = 0
+
+
+'''global tempdir
+tempdir = pathlib.Path("/tmp" if platform.system() == "Darwin" else tempfile.gettempdir())'''
+
 
 Entry1 = tk.Entry(width=20, bg='#1F2739', fg='white', borderwidth=0, justify='right', font='Comfortaa 32', highlightbackground='#1F2739')
 Entry1.grid(row = 0, columnspan = 7)
@@ -186,23 +197,69 @@ def natural_log():
         Entry1.insert(0, 'Syntax Error')
     Entry1.config(state = tk.DISABLED, disabledbackground='#1F2739', disabledforeground='white')
 
+y = []
 #Equal To Sign
 def equal_to():
     global expression
     global Entry1
+    global max_index
+    global cur_index
+    global database
+    global y
+    
     expression = str(Entry1.get())
+    database = pd.DataFrame()
+    
     try:
-        if '/0' in expression:
-            Entry1.delete(0, 'end')
-            Entry1.insert(0, "Error: Division by Zero")
-        else:
+        if '/0' not in expression:
+            y = y + [expression]
+            database['History'] = y
+            print(database)
+            database.to_csv(r'Calculations_History.csv')
             Entry1.delete(0, 'end')
             Entry1.insert(0, eval(expression))
+            
+        elif '/0' in expression:
+            Entry1.delete(0, 'end')
+            Entry1.insert(0, "Error: Division by Zero")
+        max_index = max_index + 1
+        cur_index = max_index
     except:
         Entry1.delete(0, 'end')
         Entry1.insert(0, 'Syntax Error')
+    
     Entry1.config(state = tk.DISABLED, disabledbackground='#1F2739', disabledforeground='white')
 
+#History Recalling
+def history_reverse(event):
+    global import_database
+    global cur_index
+    Entry1.config(state=tk.NORMAL)
+    import_database = pd.read_csv(r'Calculations_History.csv')
+    if cur_index > 0:
+        Entry1.delete(0, 'end')
+        Entry1.insert(0, import_database.at[cur_index - 1, 'History'])
+        cur_index = cur_index - 1
+    else:
+        Entry1.delete(0, 'end')
+        Entry1.insert(0, import_database.at[0, 'History'])
+
+def history_forward(event):
+    global import_database
+    global cur_index
+    Entry1.config(state=tk.NORMAL)
+    import_database = pd.read_csv(r'Calculations_History.csv')
+    if cur_index < len(import_database) - 1:
+        Entry1.delete(0, 'end')
+        Entry1.insert(0, import_database.at[cur_index + 1, 'History'])
+        cur_index = cur_index + 1
+    else:
+        Entry1.delete(0, 'end')
+        Entry1.insert(0, import_database.at[cur_index, 'History'])
+    
+
+    
+    
 #Clear Button
 def clear():
     Entry1.config(state = tk.NORMAL)
@@ -220,44 +277,37 @@ def delete():
         Entry1.delete(0, 'end')
         Entry1.insert(0, expression[:-1])
 
-y = []
+
 #Memory ADD
+
 def memory_add():
-    global dataframe
-    global y
-    global max_index
-    global cur_index
+    global memorylist
+    global expression
     Entry1.config(state = tk.NORMAL)
-    y = y + [str(Entry1.get())]
-    dataframe = pd.DataFrame()
-    dataframe['Memory'] = y
-    print(dataframe)
-    dataframe.to_csv(r'C:\Users\Sharjith\Desktop\Memory_Dataframe.csv')
-    Entry1.delete(0, 'end')
-    max_index = max_index + 1
-    cur_index = max_index
+    expression = str(Entry1.get())
+    memorylist = []
+
+    try:
+        memorylist = memorylist + [eval(expression)]
+        Entry1.delete(0, 'end')
+    except:
+        Entry1.delete(0, 'end')
+        Entry1.insert(0, 'Syntax Error')
+    
  
-
-
 #Recall from Memory
 def memory_recall():
     global memorylist
-    global cur_index
     global expression
     expression = str(Entry1.get())
-    memorylist = pd.read_csv(r'C:\Users\Sharjith\Desktop\Memory_Dataframe.csv')
-    if memorylist.empty :
-        Entry1.delete(0, 'end')
-        Entry1.insert(0, "Error: Empty Memory")
-    elif expression == '0':
-        Entry1.delete(0, 'end')
-        Entry1.insert('end', memorylist.at[cur_index-1,'Memory'])
-        cur_index = cur_index - 1
+    if expression.isnumeric() == False:
+        Entry1.insert('end', memorylist[0])
     else:
-        Entry1.insert('end', memorylist.at[cur_index-1,'Memory'])
-        cur_index = cur_index - 1
-    
+        Entry1.delete(0, 'end')
+        Entry1.insert('end', memorylist[0])
 
+
+    
 #Percentage
 def percentage():
     global expression
@@ -611,5 +661,13 @@ sqrt_button.grid(column = 1, row = 3)
 
 naturallog_button = tkmac.Button(root, text = "ln", height=80, width=80, bg='#1F2739', fg='white', activebackground='#171A2F', activeforeground='white', command=natural_log)
 naturallog_button.grid(column = 1, row = 4)
+
+
+
+
+
+root.bind('<Up>', history_reverse)
+root.bind('<Down>', history_forward)
+
 
 root.mainloop()
