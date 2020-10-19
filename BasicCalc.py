@@ -1,6 +1,7 @@
 '''
 Author: Hrishikesh Naramparambath
 Basic Calc v1.0
+Advanced features comming soon!
 '''
 
 import tkinter as tk
