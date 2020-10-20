@@ -1,7 +1,6 @@
 '''
 Author: Hrishikesh Naramparambath
 Basic Calc v1.0
-Advanced features comming soon!
 '''
 
 import tkinter as tk
@@ -11,9 +10,7 @@ import math
 import pandas as pd
 import cmath as cm
 
-'''import tempfile
-import pathlib
-import platform'''
+
 
 expression = ''
 
@@ -27,10 +24,6 @@ max_index = 0
 
 global cur_index
 cur_index = 0
-
-
-'''global tempdir
-tempdir = pathlib.Path("/tmp" if platform.system() == "Darwin" else tempfile.gettempdir())'''
 
 
 Entry1 = tk.Entry(width=20, bg='#1F2739', fg='white', borderwidth=0, justify='right', font='Comfortaa 32', highlightbackground='#1F2739')
@@ -218,7 +211,7 @@ def equal_to():
             print(database)
             database.to_csv(r'Calculations_History.csv')
             Entry1.delete(0, 'end')
-            Entry1.insert(0, eval(expression))
+            Entry1.insert(0, round(eval(expression), 4))
             
         elif '/0' in expression:
             Entry1.delete(0, 'end')
