@@ -9,8 +9,7 @@ import numpy as np
 import math
 import pandas as pd
 import cmath as cm
-
-
+import platform
 
 expression = ''
 
@@ -25,10 +24,14 @@ max_index = 0
 global cur_index
 cur_index = 0
 
-
-Entry1 = tk.Entry(width=20, bg='#1F2739', fg='white', borderwidth=0, justify='right', font='Comfortaa 32', highlightbackground='#1F2739')
-Entry1.grid(row = 0, columnspan = 7)
-Entry1.insert(0, '0')
+if platform.system() == 'Darwin':
+    Entry1 = tk.Entry(width=24, bg='#1F2739', fg='white', borderwidth=0, justify='right', font='Comfortaa 33', highlightbackground='#1F2739')
+    Entry1.grid(row = 0, columnspan = 7)
+    Entry1.insert(0, '0')
+else:
+    Entry1 = tk.Entry(width=20, bg='#1F2739', fg='white', borderwidth=0, justify='right', font='Comfortaa 32', highlightbackground='#1F2739')
+    Entry1.grid(row = 0, columnspan = 7)
+    Entry1.insert(0, '0')
 
 operation_list = ['+','-','*','/']
 
@@ -191,8 +194,8 @@ def natural_log():
         Entry1.insert(0, 'Syntax Error')
     Entry1.config(state = tk.DISABLED, disabledbackground='#1F2739', disabledforeground='white')
 
-y = []
 #Equal To Sign
+y = []
 def equal_to():
     global expression
     global Entry1
@@ -275,15 +278,16 @@ def delete():
 #Memory ADD
 
 def memory_add():
-    global memorylist
+    global memory
     global expression
     Entry1.config(state = tk.NORMAL)
     expression = str(Entry1.get())
-    memorylist = []
-
     try:
-        memorylist = memorylist + [eval(expression)]
-        Entry1.delete(0, 'end')
+        if expression not in ('','0'):
+            memory = eval(expression)
+            Entry1.delete(0, 'end')   
+        else:
+            pass 
     except:
         Entry1.delete(0, 'end')
         Entry1.insert(0, 'Syntax Error')
@@ -291,17 +295,18 @@ def memory_add():
  
 #Recall from Memory
 def memory_recall():
-    global memorylist
+    global memory
     global expression
     expression = str(Entry1.get())
-    if expression.isnumeric() == False:
-        Entry1.insert('end', memorylist[0])
-    else:
-        Entry1.delete(0, 'end')
-        Entry1.insert('end', memorylist[0])
+    try:
+        if expression.isnumeric() == False:
+            Entry1.insert('end', memory)
+        else:
+            Entry1.delete(0, 'end')
+            Entry1.insert('end', memory)
+    except:
+        pass
 
-
-    
 #Percentage
 def percentage():
     global expression
