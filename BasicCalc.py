@@ -219,12 +219,12 @@ def equal_to():
         elif '/0' in expression:
             Entry1.delete(0, 'end')
             Entry1.insert(0, "Error: Division by Zero")
+        
         max_index = max_index + 1
         cur_index = max_index
     except:
         Entry1.delete(0, 'end')
         Entry1.insert(0, 'Syntax Error')
-    
     Entry1.config(state = tk.DISABLED, disabledbackground='#1F2739', disabledforeground='white')
 
 #History Recalling
@@ -244,19 +244,21 @@ def history_reverse(event):
 def history_forward(event):
     global import_database
     global cur_index
+    global expression
     Entry1.config(state=tk.NORMAL)
     import_database = pd.read_csv(r'Calculations_History.csv')
-    if cur_index < len(import_database) - 1:
+    expression = str(Entry1.get())
+    try:
+        if cur_index < len(import_database) - 1:
+            Entry1.delete(0, 'end')
+            Entry1.insert(0, import_database.at[cur_index + 1, 'History'])
+            cur_index = cur_index + 1
+        else:
+            Entry1.delete(0, 'end')
+            Entry1.insert(0, import_database.at[cur_index, 'History'])
+    except KeyError:
         Entry1.delete(0, 'end')
-        Entry1.insert(0, import_database.at[cur_index + 1, 'History'])
-        cur_index = cur_index + 1
-    else:
-        Entry1.delete(0, 'end')
-        Entry1.insert(0, import_database.at[cur_index, 'History'])
-    
-
-    
-    
+        Entry1.insert(0, expression)    
 #Clear Button
 def clear():
     Entry1.config(state = tk.NORMAL)
@@ -285,7 +287,8 @@ def memory_add():
     try:
         if expression not in ('','0'):
             memory = eval(expression)
-            Entry1.delete(0, 'end')   
+            Entry1.delete(0, 'end')
+            Entry1.insert('end', '0')
         else:
             pass 
     except:
@@ -660,10 +663,6 @@ sqrt_button.grid(column = 1, row = 3)
 
 naturallog_button = tkmac.Button(root, text = "ln", height=80, width=80, bg='#1F2739', fg='white', activebackground='#171A2F', activeforeground='white', command=natural_log)
 naturallog_button.grid(column = 1, row = 4)
-
-
-
-
 
 root.bind('<Up>', history_reverse)
 root.bind('<Down>', history_forward)
