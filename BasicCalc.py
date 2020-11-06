@@ -1,7 +1,10 @@
+#!usr/bin/env python3
 '''
 Author: Hrishikesh Naramparambath
 Basic Calc v1.0
 '''
+
+#Importing modules
 
 import tkinter as tk
 import tkmacosx as tkmac
@@ -11,12 +14,14 @@ import pandas as pd
 import cmath as cm
 import platform
 
-expression = ''
 
+#Main Window
 root = tk.Tk()
 root.title("BasicCalc")
 root.resizable(0,0)
 root.configure(bg = '#1F2739')
+
+#Variables
 
 global max_index
 max_index = 0
@@ -24,18 +29,35 @@ max_index = 0
 global cur_index
 cur_index = 0
 
+expression = ''
+
+#Cross-platform feature
 if platform.system() == 'Darwin':
-    Entry1 = tk.Entry(width=24, bg='#1F2739', fg='white', borderwidth=0, justify='right', font='Comfortaa 33', highlightbackground='#1F2739')
+    Entry1 = tk.Entry(width=24, bg='#1F2739', fg='white', borderwidth=0, justify='right', font='Avenir 34', highlightbackground='#1F2739')
     Entry1.grid(row = 0, columnspan = 7)
     Entry1.insert(0, '0')
 else:
-    Entry1 = tk.Entry(width=20, bg='#1F2739', fg='white', borderwidth=0, justify='right', font='Comfortaa 32', highlightbackground='#1F2739')
+    Entry1 = tk.Entry(width=20, bg='#1F2739', fg='white', borderwidth=0, justify='right', font='Avenir 32', highlightbackground='#1F2739')
     Entry1.grid(row = 0, columnspan = 7)
     Entry1.insert(0, '0')
 
-operation_list = ['+','-','*','/']
+#Operations List  
+operation_list = ['+','-','x','÷']
 
-#Defining functions for calc  
+#Lists of Errors
+error_list = ['Syntax Error', 'Error: Division by Zero', 'Error: Empty Memory', 'undefined']
+error_list_for_reciprocal = error_list
+error_list_for_trig = [''] + error_list
+error_list_for_constant = ['0'] + error_list
+error_list_for_numbers = error_list_for_constant
+
+
+#Defining Functions  
+
+'''
+Arithmetic Operations
+Addition, Subtraction, Multiplication and Division
+'''
 
 #Addition
 def add():
@@ -85,9 +107,9 @@ def multiply():
         Entry1.delete(0, 'end')
         expression = expression[:-1]
         Entry1.insert(0, expression)
-        Entry1.insert('end', '*')
+        Entry1.insert('end', 'x')
     else:
-        Entry1.insert('end','*')
+        Entry1.insert('end','x')
 
 #Division
 def divide():
@@ -102,15 +124,17 @@ def divide():
         Entry1.delete(0, 'end')
         expression = expression[:-1]
         Entry1.insert(0, expression)
-        Entry1.insert('end', '/')
+        Entry1.insert('end', '÷')
     else:
-        Entry1.insert('end','/')
+        Entry1.insert('end','÷')
 
 
-error_list_for_reciprocal = ['Syntax Error', 'Error: Division by Zero', 'Error: Empty Memory', 'undefined']
+'''
+Mathematicsal functions
+Reciprocal, square, sqrt, natural logarithm
+'''
 
 #Reciprocal Button
-
 def reciprocal():
     global expression
     expression = str(Entry1.get())
@@ -134,23 +158,22 @@ def reciprocal():
             Entry1.insert(0, 'Syntax Error')
     Entry1.config(state = tk.DISABLED, disabledbackground='#1F2739', disabledforeground='white')
 
-#Square
-
-def square():
+#Power
+def power():
     global expression
     expression = str(Entry1.get())
     Entry1.config(state = tk.NORMAL)
-    try:
-        if expression in error_list_for_reciprocal:
-            Entry1.delete(0, 'end')
-            Entry1.insert(0, 'Syntax Error')
-        else:
-            Entry1.delete(0, 'end')
-            Entry1.insert(0, (eval(expression))**2)
-    except:
+    if expression in ('','0'):
+        pass
+    elif expression in operation_list:
         Entry1.delete(0, 'end')
-        Entry1.insert(0, 'Syntax Error')
-    Entry1.config(state = tk.DISABLED, disabledbackground='#1F2739', disabledforeground='white')
+    elif expression[-1] in operation_list:
+        Entry1.delete(0, 'end')
+        expression = expression[:-1]
+        Entry1.insert(0, expression)
+        Entry1.insert('end', '^')
+    else:
+        Entry1.insert('end','^')
 
 #SQRT
 
@@ -194,6 +217,7 @@ def natural_log():
         Entry1.insert(0, 'Syntax Error')
     Entry1.config(state = tk.DISABLED, disabledbackground='#1F2739', disabledforeground='white')
 
+#Miscellaneous
 #Equal To Sign
 y = []
 def equal_to():
@@ -206,17 +230,28 @@ def equal_to():
     
     expression = str(Entry1.get())
     database = pd.DataFrame()
-    
+
     try:
-        if '/0' not in expression:
-            y = y + [expression]
-            database['History'] = y
-            print(database)
-            database.to_csv(r'Calculations_History.csv')
-            Entry1.delete(0, 'end')
-            Entry1.insert(0, round(eval(expression), 4))
+        if expression[-2:] != '÷0':
+            if 'x' or '÷' or '^' in expression:
+                y = y + [expression]
+                database['History'] = y
+                print(database)
+                expression = expression.replace('x','*')
+                expression = expression.replace('÷','/')
+                expression = expression.replace('^','**')
+                database.to_csv(r'Calculations_History.csv')
+                Entry1.delete(0, 'end')
+                Entry1.insert(0, round(eval(expression), 4))
+            else:
+                y = y + [expression]
+                database['History'] = y
+                print(database)
+                database.to_csv(r'Calculations_History.csv')
+                Entry1.delete(0, 'end')
+                Entry1.insert(0, round(eval(expression), 4))
             
-        elif '/0' in expression:
+        elif expression[-2:] == '÷0':
             Entry1.delete(0, 'end')
             Entry1.insert(0, "Error: Division by Zero")
         
@@ -226,6 +261,56 @@ def equal_to():
         Entry1.delete(0, 'end')
         Entry1.insert(0, 'Syntax Error')
     Entry1.config(state = tk.DISABLED, disabledbackground='#1F2739', disabledforeground='white')
+
+#Clear Button
+def clear():
+    Entry1.config(state = tk.NORMAL)
+    Entry1.delete(0, 'end')
+    Entry1.insert(0, '0')
+
+#Delete Button
+def delete():
+    global expression
+    expression = str(Entry1.get())
+    if Entry1.cget('state') == tk.DISABLED:
+        Entry1.config(state = tk.NORMAL)
+        Entry1.delete(0, 'end')
+    elif len(expression) == 1:
+        Entry1.delete(0, 'end')
+        Entry1.insert(0,'0')
+    else:
+        Entry1.delete(0, 'end')
+        Entry1.insert(0, expression[:-1])
+
+#Percentage
+def percentage():
+    global expression
+    expression = str(Entry1.get())
+    Entry1.config(state = tk.NORMAL)
+    try:
+        if '÷0' in expression:
+            Entry1.delete(0, 'end')
+            Entry1.insert(0, "Error: Division By Zero")
+        else:
+            Entry1.delete(0, 'end')
+            Entry1.insert(0, eval(expression)*100)
+    except:
+        Entry1.delete(0, 'end')
+        Entry1.insert(0, "Syntax Error")
+
+#Decimal Button
+def decimal():
+    global expression
+    expression = str(Entry1.get())
+    if expression[-1] in operation_list: 
+        Entry1.insert('end','0.')
+    else:
+        Entry1.insert('end','.')
+
+'''
+Advanced features
+History and Memory
+'''
 
 #History Recalling
 def history_reverse(event):
@@ -258,27 +343,9 @@ def history_forward(event):
             Entry1.insert(0, import_database.at[cur_index, 'History'])
     except KeyError:
         Entry1.delete(0, 'end')
-        Entry1.insert(0, expression)    
-#Clear Button
-def clear():
-    Entry1.config(state = tk.NORMAL)
-    Entry1.delete(0, 'end')
-    Entry1.insert(0, '0')
-
-#Delete Button
-def delete():
-    global expression
-    expression = str(Entry1.get())
-    if Entry1.cget('state') == tk.DISABLED:
-        Entry1.config(state = tk.NORMAL)
-        Entry1.delete(0, 'end')
-    else:
-        Entry1.delete(0, 'end')
-        Entry1.insert(0, expression[:-1])
-
-
+        Entry1.insert(0, expression)
+        
 #Memory ADD
-
 def memory_add():
     global memory
     global expression
@@ -310,27 +377,12 @@ def memory_recall():
     except:
         pass
 
-#Percentage
-def percentage():
-    global expression
-    expression = str(Entry1.get())
-    Entry1.config(state = tk.NORMAL)
-    try:
-        if '/0' in expression:
-            Entry1.delete(0, 'end')
-            Entry1.insert(0, "Error: Division By Zero")
-        else:
-            Entry1.delete(0, 'end')
-            Entry1.insert(0, eval(expression)*100)
-    except:
-        Entry1.delete(0, 'end')
-        Entry1.insert(0, "Syntax Error")
-
-
-error_list_for_trig = ['', 'Syntax Error', 'Error: Division By Zero', 'undefined', 'Error: Empty Memory']
+'''
+Trigonometric Functions
+sine, cosine, tangent
+'''
 
 #Sine function
-
 def sine_function():
     global expression
     expression = str(Entry1.get())
@@ -339,12 +391,9 @@ def sine_function():
         if expression in error_list_for_trig:
             Entry1.delete(0, 'end')
             Entry1.insert(0, "Syntax Error")
-        elif expression == '3.141592653589793':
-            Entry1.delete(0, 'end')
-            Entry1.insert(0, '0')
         else:
             Entry1.delete(0, 'end')
-            Entry1.insert(0, np.sin(eval(expression)))
+            Entry1.insert(0, round(np.sin(eval(expression)), 5))
     except:
         Entry1.delete(0, 'end')
         Entry1.insert(0, "Syntax Error")
@@ -361,7 +410,7 @@ def cos_function():
             Entry1.insert(0, "Syntax Error")
         else:
             Entry1.delete(0, 'end')
-            Entry1.insert(0, np.cos(eval(expression)))
+            Entry1.insert(0, round(np.cos(eval(expression)), 5))
     except:
         Entry1.delete(0, 'end')
         Entry1.insert(0, "Syntax Error")
@@ -376,23 +425,26 @@ def tan_function():
         if expression in error_list_for_trig:
             Entry1.delete(0, 'end')
             Entry1.insert(0, "Syntax Error")
-        elif expression == '3.141592653589793':
-            Entry1.delete(0, 'end')
-            Entry1.insert(0, '0')
         else:
             Entry1.delete(0, 'end')
-            Entry1.insert(0, np.tan(eval(expression)))
+            Entry1.insert(0, round(np.tan(eval(expression)), 5))
     except:
         Entry1.delete(0, 'end')
         Entry1.insert(0, "Syntax Error")
     Entry1.config(state = tk.DISABLED, disabledbackground='#1F2739', disabledforeground='white')
 
-error_list_for_constant = ['0', 'Syntax Error', 'Error: Division By Zero', 'undefined', 'Error: Empty Memory']
+
+'''
+Special constants
+pi and Euler's number
+'''
 
 #Pi constant
 def pi_constant():
     global expression
     expression = str(Entry1.get())
+    Entry1.config(state = tk.NORMAL)
+
     if expression in error_list_for_constant:
         Entry1.delete(0, 'end')
         Entry1.insert('end', np.pi)
@@ -406,6 +458,8 @@ def pi_constant():
 def e_constant():
     global expression
     expression = str(Entry1.get())
+    Entry1.config(state = tk.NORMAL)
+
     if expression in error_list_for_constant:
         Entry1.delete(0, 'end')
         Entry1.insert('end', np.e)
@@ -415,7 +469,9 @@ def e_constant():
     else:
         Entry1.insert('end', np.e)
 
-error_list_for_numbers = ['0', 'Syntax Error', 'Error: Division By Zero', 'undefined', 'Error: Empty Memory']
+'''
+Numerals/Digits
+'''
 
 #Numbers Buttons
 def button1_click():
@@ -548,12 +604,10 @@ def button0_click():
     else:
         Entry1.insert('end',Button0.cget('text'))
 
-#Decimal Button
-def decimal():
-    Entry1.insert('end',Button_Decimal.cget('text'))
 
-
-#User Interface - Buttons
+'''
+User Interface
+'''
 
 #Numbers
 
@@ -652,18 +706,19 @@ tan_button.grid(column = 2, row = 4)
 
 #Additional Math Functions
 
-reciprocal_button = tkmac.Button(root, text = "1/x", height=80, width=80, bg='#1F2739', fg='white', activebackground='#171A2F', activeforeground='white', command=reciprocal)
+reciprocal_button = tkmac.Button(root, text = '1/x', height=80, width=80, bg='#1F2739', fg='white', activebackground='#171A2F', activeforeground='white', command=reciprocal)
 reciprocal_button.grid(column = 1, row = 1)
 
-square_button = tkmac.Button(root, text = "x²", height=80, width=80, bg='#1F2739', fg='white', activebackground='#171A2F', activeforeground='white', command=square)
-square_button.grid(column = 1, row = 2)
+power_button = tkmac.Button(root, text = ("x\u02b8"), height=80, width=80, bg='#1F2739', fg='white', activebackground='#171A2F', activeforeground='white', command=power)
+power_button.grid(column = 1, row = 2)
 
 sqrt_button = tkmac.Button(root, text = "√x", height=80, width=80, bg='#1F2739', fg='white', activebackground='#171A2F', activeforeground='white', command=square_root)
 sqrt_button.grid(column = 1, row = 3)
 
-naturallog_button = tkmac.Button(root, text = "ln", height=80, width=80, bg='#1F2739', fg='white', activebackground='#171A2F', activeforeground='white', command=natural_log)
+naturallog_button = tkmac.Button(root, text = "log\u2091", height=80, width=80, bg='#1F2739', fg='white', activebackground='#171A2F', activeforeground='white', command=natural_log)
 naturallog_button.grid(column = 1, row = 4)
 
+#Binding keys to history functions
 root.bind('<Up>', history_reverse)
 root.bind('<Down>', history_forward)
 
