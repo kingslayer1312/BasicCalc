@@ -142,6 +142,12 @@ def reciprocal():
     if expression == '0':
         Entry1.delete(0, 'end')
         Entry1.insert(0, 'undefined')
+    elif 'x' or '÷' or '^' or 'π' or 'e' in expression:
+            expression = expression.replace('x','*')
+            expression = expression.replace('÷','/')
+            expression = expression.replace('^','**')
+            expression = expression.replace('π',str(np.pi))
+            expression = expression.replace('e',str(np.e))    
     try:
         if expression in error_list_for_reciprocal:
             Entry1.delete(0, 'end')
@@ -181,6 +187,12 @@ def square_root():
     global expression
     expression = str(Entry1.get())
     Entry1.config(state = tk.NORMAL)
+    if 'x' or '÷' or '^' or 'π' or 'e' in expression:
+        expression = expression.replace('x','*')
+        expression = expression.replace('÷','/')
+        expression = expression.replace('^','**')
+        expression = expression.replace('π',str(np.pi))
+        expression = expression.replace('e',str(np.e))
     try:
         if expression in error_list_for_reciprocal:
             Entry1.delete(0, 'end')
@@ -202,6 +214,12 @@ def natural_log():
     global expression
     expression = str(Entry1.get())
     Entry1.config(state = tk.NORMAL)
+    if 'x' or '÷' or '^' or 'π' or 'e' in expression:
+        expression = expression.replace('x','*')
+        expression = expression.replace('÷','/')
+        expression = expression.replace('^','**')
+        expression = expression.replace('π',str(np.pi))
+        expression = expression.replace('e',str(np.e))
     try:
         if expression in error_list_for_reciprocal:
             Entry1.delete(0, 'end')
@@ -289,6 +307,12 @@ def percentage():
     global expression
     expression = str(Entry1.get())
     Entry1.config(state = tk.NORMAL)
+    if 'x' or '÷' or '^' or 'π' or 'e' in expression:
+        expression = expression.replace('x','*')
+        expression = expression.replace('÷','/')
+        expression = expression.replace('^','**')
+        expression = expression.replace('π',str(np.pi))
+        expression = expression.replace('e',str(np.e))
     try:
         if '÷0' in expression:
             Entry1.delete(0, 'end')
@@ -353,6 +377,12 @@ def memory_add():
     global expression
     Entry1.config(state = tk.NORMAL)
     expression = str(Entry1.get())
+    if 'x' or '÷' or '^' or 'π' or 'e' in expression:
+        expression = expression.replace('x','*')
+        expression = expression.replace('÷','/')
+        expression = expression.replace('^','**')
+        expression = expression.replace('π',str(np.pi))
+        expression = expression.replace('e',str(np.e))
     try:
         if expression not in ('','0'):
             memory = eval(expression)
@@ -389,6 +419,12 @@ def sine_function():
     global expression
     expression = str(Entry1.get())
     Entry1.config(state = tk.NORMAL)
+    if 'x' or '÷' or '^' or 'π' or 'e' in expression:
+        expression = expression.replace('x','*')
+        expression = expression.replace('÷','/')
+        expression = expression.replace('^','**')
+        expression = expression.replace('π',str(np.pi))
+        expression = expression.replace('e',str(np.e))
     try:
         if expression in error_list_for_trig:
             Entry1.delete(0, 'end')
@@ -406,6 +442,12 @@ def cos_function():
     global expression
     expression = str(Entry1.get())
     Entry1.config(state = tk.NORMAL)
+    if 'x' or '÷' or '^' or 'π' or 'e' in expression:
+        expression = expression.replace('x','*')
+        expression = expression.replace('÷','/')
+        expression = expression.replace('^','**')
+        expression = expression.replace('π',str(np.pi))
+        expression = expression.replace('e',str(np.e))
     try:
         if expression in error_list_for_trig:
             Entry1.delete(0, 'end')
@@ -423,6 +465,12 @@ def tan_function():
     global expression
     expression = str(Entry1.get())
     Entry1.config(state = tk.NORMAL)
+    if 'x' or '÷' or '^' or 'π' or 'e' in expression:
+        expression = expression.replace('x','*')
+        expression = expression.replace('÷','/')
+        expression = expression.replace('^','**')
+        expression = expression.replace('π',str(np.pi))
+        expression = expression.replace('e',str(np.e))
     try:
         if expression in error_list_for_trig:
             Entry1.delete(0, 'end')
