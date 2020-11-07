@@ -33,11 +33,11 @@ expression = ''
 
 #Cross-platform feature
 if platform.system() == 'Darwin':
-    Entry1 = tk.Entry(width=24, bg='#1F2739', fg='white', borderwidth=0, justify='right', font='Avenir 34', highlightbackground='#1F2739')
+    Entry1 = tk.Entry(width=23, bg='#1F2739', fg='white', borderwidth=0, justify='right', font='Comfortaa 34 bold', highlightbackground='#1F2739')
     Entry1.grid(row = 0, columnspan = 7)
     Entry1.insert(0, '0')
 else:
-    Entry1 = tk.Entry(width=20, bg='#1F2739', fg='white', borderwidth=0, justify='right', font='Avenir 32', highlightbackground='#1F2739')
+    Entry1 = tk.Entry(width=20, bg='#1F2739', fg='white', borderwidth=0, justify='right', font='Comfortaa 32 bold', highlightbackground='#1F2739')
     Entry1.grid(row = 0, columnspan = 7)
     Entry1.insert(0, '0')
 
@@ -163,7 +163,7 @@ def power():
     global expression
     expression = str(Entry1.get())
     Entry1.config(state = tk.NORMAL)
-    if expression in ('','0'):
+    if expression in (''):
         pass
     elif expression in operation_list:
         Entry1.delete(0, 'end')
@@ -233,13 +233,15 @@ def equal_to():
 
     try:
         if expression[-2:] != '÷0':
-            if 'x' or '÷' or '^' in expression:
+            if 'x' or '÷' or '^' or 'π' or 'e' in expression:
                 y = y + [expression]
                 database['History'] = y
                 print(database)
                 expression = expression.replace('x','*')
                 expression = expression.replace('÷','/')
                 expression = expression.replace('^','**')
+                expression = expression.replace('π',str(np.pi))
+                expression = expression.replace('e',str(np.e))
                 database.to_csv(r'Calculations_History.csv')
                 Entry1.delete(0, 'end')
                 Entry1.insert(0, round(eval(expression), 4))
@@ -447,12 +449,12 @@ def pi_constant():
 
     if expression in error_list_for_constant:
         Entry1.delete(0, 'end')
-        Entry1.insert('end', np.pi)
+        Entry1.insert('end', 'π')
     elif expression[-1] not in operation_list:
         Entry1.delete(0, 'end')
-        Entry1.insert('end', np.pi)
+        Entry1.insert('end', 'π')
     else:
-        Entry1.insert('end', np.pi)
+        Entry1.insert('end', 'π')
 
 #e constant
 def e_constant():
@@ -462,12 +464,12 @@ def e_constant():
 
     if expression in error_list_for_constant:
         Entry1.delete(0, 'end')
-        Entry1.insert('end', np.e)
+        Entry1.insert('end', 'e')
     elif expression[-1] not in operation_list:
         Entry1.delete(0, 'end')
-        Entry1.insert('end', np.e)
+        Entry1.insert('end', 'e')
     else:
-        Entry1.insert('end', np.e)
+        Entry1.insert('end', 'e')
 
 '''
 Numerals/Digits
