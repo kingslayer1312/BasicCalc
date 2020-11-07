@@ -33,7 +33,7 @@ expression = ''
 
 #Cross-platform feature
 if platform.system() == 'Darwin':
-    Entry1 = tk.Entry(width=23, bg='#1F2739', fg='white', borderwidth=0, justify='right', font='Comfortaa 34 bold', highlightbackground='#1F2739')
+    Entry1 = tk.Entry(width=22, bg='#1F2739', fg='white', borderwidth=0, justify='right', font='Comfortaa 36 bold', highlightbackground='#1F2739')
     Entry1.grid(row = 0, columnspan = 7)
     Entry1.insert(0, '0')
 else:
@@ -157,7 +157,7 @@ def reciprocal():
             Entry1.insert(0, 'Error: Division by Zero')
         else:
             Entry1.delete(0, 'end')
-            Entry1.insert(0, 1/eval(expression))
+            Entry1.insert(0, round((1/eval(expression)),5))
     except:
         if expression != '0':
             Entry1.delete(0, 'end')
@@ -262,14 +262,14 @@ def equal_to():
                 expression = expression.replace('e',str(np.e))
                 database.to_csv(r'Calculations_History.csv')
                 Entry1.delete(0, 'end')
-                Entry1.insert(0, round(eval(expression), 4))
+                Entry1.insert(0, round(eval(expression), 5))
             else:
                 y = y + [expression]
                 database['History'] = y
                 print(database)
                 database.to_csv(r'Calculations_History.csv')
                 Entry1.delete(0, 'end')
-                Entry1.insert(0, round(eval(expression), 4))
+                Entry1.insert(0, round(eval(expression), 5))
             
         elif expression[-2:] == '÷0':
             Entry1.delete(0, 'end')
@@ -385,7 +385,7 @@ def memory_add():
         expression = expression.replace('e',str(np.e))
     try:
         if expression not in ('','0'):
-            memory = eval(expression)
+            memory = str(eval(expression))
             Entry1.delete(0, 'end')
             Entry1.insert('end', '0')
         else:
@@ -400,6 +400,8 @@ def memory_recall():
     global memory
     global expression
     expression = str(Entry1.get())
+    memory = memory.replace(str(np.e), 'e')
+    memory = memory.replace(str(np.pi), 'π')
     try:
         if expression.isnumeric() == False:
             Entry1.insert('end', memory)
