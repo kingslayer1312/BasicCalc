@@ -33,16 +33,16 @@ expression = ''
 
 #Cross-platform feature
 if platform.system() == 'Darwin':
-    Entry1 = tk.Entry(width=22, bg='#1B2131', fg='white', borderwidth=0, justify='right', font='Comfortaa 36 bold', highlightbackground='#1B2131')
+    Entry1 = tk.Entry(width=21, bg='#1B2131', fg='white', borderwidth=0, justify='right', font='Helvetica 38 bold', highlightbackground='#1B2131')
     Entry1.grid(row = 0, columnspan = 7)
     Entry1.insert(0, '0')
 else:
-    Entry1 = tk.Entry(width=20, bg='#1B2131', fg='white', borderwidth=0, justify='right', font='Comfortaa 32 bold', highlightbackground='#1B2131')
+    Entry1 = tk.Entry(width=20, bg='#1B2131', fg='white', borderwidth=0, justify='right', font='Helvetica 32 bold', highlightbackground='#1B2131')
     Entry1.grid(row = 0, columnspan = 7)
     Entry1.insert(0, '0')
 
 #Operations List  
-operation_list = ['+','-','x','÷','^']
+operation_list = ['+','-','×','÷','^']
 
 #Lists of Errors
 error_list = ['Syntax Error', 'Error: Division by Zero', 'Error: Empty Memory', 'undefined']
@@ -107,9 +107,9 @@ def multiply():
         Entry1.delete(0, 'end')
         expression = expression[:-1]
         Entry1.insert(0, expression)
-        Entry1.insert('end', 'x')
+        Entry1.insert('end', '×')
     else:
-        Entry1.insert('end','x')
+        Entry1.insert('end','×')
 
 #Division
 def divide():
@@ -142,8 +142,8 @@ def reciprocal():
     if expression == '0':
         Entry1.delete(0, 'end')
         Entry1.insert(0, 'undefined')
-    elif 'x' or '÷' or '^' or 'π' or 'e' in expression:
-            expression = expression.replace('x','*')
+    elif '×' or '÷' or '^' or 'π' or 'e' in expression:
+            expression = expression.replace('×','*')
             expression = expression.replace('÷','/')
             expression = expression.replace('^','**')
             expression = expression.replace('π',str(np.pi))
@@ -187,8 +187,8 @@ def square_root():
     global expression
     expression = str(Entry1.get())
     Entry1.config(state = tk.NORMAL)
-    if 'x' or '÷' or '^' or 'π' or 'e' in expression:
-        expression = expression.replace('x','*')
+    if '×' or '÷' or '^' or 'π' or 'e' in expression:
+        expression = expression.replace('×','*')
         expression = expression.replace('÷','/')
         expression = expression.replace('^','**')
         expression = expression.replace('π',str(np.pi))
@@ -214,8 +214,8 @@ def natural_log():
     global expression
     expression = str(Entry1.get())
     Entry1.config(state = tk.NORMAL)
-    if 'x' or '÷' or '^' or 'π' or 'e' in expression:
-        expression = expression.replace('x','*')
+    if '×' or '÷' or '^' or 'π' or 'e' in expression:
+        expression = expression.replace('×','*')
         expression = expression.replace('÷','/')
         expression = expression.replace('^','**')
         expression = expression.replace('π',str(np.pi))
@@ -251,11 +251,11 @@ def equal_to():
 
     try:
         if expression[-2:] != '÷0':
-            if 'x' or '÷' or '^' or 'π' or 'e' in expression:
+            if '×' or '÷' or '^' or 'π' or 'e' in expression:
                 y = y + [expression]
                 database['History'] = y
                 print(database)
-                expression = expression.replace('x','*')
+                expression = expression.replace('×','*')
                 expression = expression.replace('÷','/')
                 expression = expression.replace('^','**')
                 expression = expression.replace('π',str(np.pi))
@@ -307,8 +307,8 @@ def percentage():
     global expression
     expression = str(Entry1.get())
     Entry1.config(state = tk.NORMAL)
-    if 'x' or '÷' or '^' or 'π' or 'e' in expression:
-        expression = expression.replace('x','*')
+    if '×' or '÷' or '^' or 'π' or 'e' in expression:
+        expression = expression.replace('×','*')
         expression = expression.replace('÷','/')
         expression = expression.replace('^','**')
         expression = expression.replace('π',str(np.pi))
@@ -377,8 +377,8 @@ def memory_add():
     global expression
     Entry1.config(state = tk.NORMAL)
     expression = str(Entry1.get())
-    if 'x' or '÷' or '^' or 'π' or 'e' in expression:
-        expression = expression.replace('x','*')
+    if '×' or '÷' or '^' or 'π' or 'e' in expression:
+        expression = expression.replace('×','*')
         expression = expression.replace('÷','/')
         expression = expression.replace('^','**')
         expression = expression.replace('π',str(np.pi))
@@ -421,8 +421,8 @@ def sine_function():
     global expression
     expression = str(Entry1.get())
     Entry1.config(state = tk.NORMAL)
-    if 'x' or '÷' or '^' or 'π' or 'e' in expression:
-        expression = expression.replace('x','*')
+    if '×' or '÷' or '^' or 'π' or 'e' in expression:
+        expression = expression.replace('×','*')
         expression = expression.replace('÷','/')
         expression = expression.replace('^','**')
         expression = expression.replace('π',str(np.pi))
@@ -444,8 +444,8 @@ def cos_function():
     global expression
     expression = str(Entry1.get())
     Entry1.config(state = tk.NORMAL)
-    if 'x' or '÷' or '^' or 'π' or 'e' in expression:
-        expression = expression.replace('x','*')
+    if '×' or '÷' or '^' or 'π' or 'e' in expression:
+        expression = expression.replace('×','*')
         expression = expression.replace('÷','/')
         expression = expression.replace('^','**')
         expression = expression.replace('π',str(np.pi))
@@ -467,8 +467,8 @@ def tan_function():
     global expression
     expression = str(Entry1.get())
     Entry1.config(state = tk.NORMAL)
-    if 'x' or '÷' or '^' or 'π' or 'e' in expression:
-        expression = expression.replace('x','*')
+    if '×' or '÷' or '^' or 'π' or 'e' in expression:
+        expression = expression.replace('×','*')
         expression = expression.replace('÷','/')
         expression = expression.replace('^','**')
         expression = expression.replace('π',str(np.pi))
@@ -663,111 +663,111 @@ User Interface
 
 #Numbers
 
-Button1 = tkmac.Button(root, font = 'Comfortaa', text = "1", height=80, width=80, bg='#1B2131', fg='white', activebackground='#171A2F', activeforeground='white', command=button1_click)
+Button1 = tkmac.Button(root, font = 'Helvetica', text = "1", height=80, width=80, bg='#1B2131', fg='white', activebackground='#171A2F', activeforeground='white', command=button1_click)
 Button1.grid(column = 3, row = 4)
 
-Button2 = tkmac.Button(root, font = 'Comfortaa', text = "2", height=80, width=80, bg='#1B2131', fg='white', activebackground='#171A2F', activeforeground='white', command=button2_click)
+Button2 = tkmac.Button(root, font = 'Helvetica', text = "2", height=80, width=80, bg='#1B2131', fg='white', activebackground='#171A2F', activeforeground='white', command=button2_click)
 Button2.grid(column = 4, row = 4)
 
-Button3 = tkmac.Button(root, font = 'Comfortaa', text = "3", height=80, width=80, bg='#1B2131', fg='white', activebackground='#171A2F', activeforeground='white', command=button3_click)
+Button3 = tkmac.Button(root, font = 'Helvetica', text = "3", height=80, width=80, bg='#1B2131', fg='white', activebackground='#171A2F', activeforeground='white', command=button3_click)
 Button3.grid(column = 5, row = 4)
 
-Button4 = tkmac.Button(root, font = 'Comfortaa', text = "4", height=80, width=80, bg='#1B2131', fg='white', activebackground='#171A2F', activeforeground='white', command=button4_click)
+Button4 = tkmac.Button(root, font = 'Helvetica', text = "4", height=80, width=80, bg='#1B2131', fg='white', activebackground='#171A2F', activeforeground='white', command=button4_click)
 Button4.grid(column = 3, row = 3)
 
-Button5 = tkmac.Button(root, font = 'Comfortaa', text = "5", height=80, width=80, bg='#1B2131', fg='white', activebackground='#171A2F', activeforeground='white', command=button5_click)
+Button5 = tkmac.Button(root, font = 'Helvetica', text = "5", height=80, width=80, bg='#1B2131', fg='white', activebackground='#171A2F', activeforeground='white', command=button5_click)
 Button5.grid(column = 4, row = 3)
 
-Button6 = tkmac.Button(root, font = 'Comfortaa', text = "6", height=80, width=80, bg='#1B2131', fg='white', activebackground='#171A2F', activeforeground='white', command=button6_click)
+Button6 = tkmac.Button(root, font = 'Helvetica', text = "6", height=80, width=80, bg='#1B2131', fg='white', activebackground='#171A2F', activeforeground='white', command=button6_click)
 Button6.grid(column = 5, row = 3)
 
-Button7 = tkmac.Button(root, font = 'Comfortaa', text = "7", height=80, width=80, bg='#1B2131', fg='white', activebackground='#171A2F', activeforeground='white', command=button7_click)
+Button7 = tkmac.Button(root, font = 'Helvetica', text = "7", height=80, width=80, bg='#1B2131', fg='white', activebackground='#171A2F', activeforeground='white', command=button7_click)
 Button7.grid(column = 3, row = 2)
 
-Button8 = tkmac.Button(root, font = 'Comfortaa', text = "8", height=80, width=80, bg='#1B2131', fg='white', activebackground='#171A2F', activeforeground='white', command=button8_click)
+Button8 = tkmac.Button(root, font = 'Helvetica', text = "8", height=80, width=80, bg='#1B2131', fg='white', activebackground='#171A2F', activeforeground='white', command=button8_click)
 Button8.grid(column = 4, row = 2)
 
-Button9 = tkmac.Button(root, font = 'Comfortaa', text = "9", height=80, width=80, bg='#1B2131', fg='white', activebackground='#171A2F', activeforeground='white', command=button9_click)
+Button9 = tkmac.Button(root, font = 'Helvetica', text = "9", height=80, width=80, bg='#1B2131', fg='white', activebackground='#171A2F', activeforeground='white', command=button9_click)
 Button9.grid(column = 5, row = 2)
 
-Button0 = tkmac.Button(root, font = 'Comfortaa', text = "0", height=80, width=80, bg='#1B2131', fg='white', activebackground='#171A2F', activeforeground='white', command=button0_click)
+Button0 = tkmac.Button(root, font = 'Helvetica', text = "0", height=80, width=80, bg='#1B2131', fg='white', activebackground='#171A2F', activeforeground='white', command=button0_click)
 Button0.grid(column = 4, row = 5)
 
 #Special constants
 
-pi_button = tkmac.Button(root, font = 'Comfortaa', text = "π", height=80, width=80, bg='#1B2131', fg='white', activebackground='#171A2F', activeforeground='white', command=pi_constant)
+pi_button = tkmac.Button(root, font = 'Helvetica', text = "π", height=80, width=80, bg='#1B2131', fg='white', activebackground='#171A2F', activeforeground='white', command=pi_constant)
 pi_button.grid(column = 2, row = 5)
 
-e_button = tkmac.Button(root, font = 'Comfortaa', text = "e", height=80, width=80, bg='#1B2131', fg='white', activebackground='#171A2F', activeforeground='white', command=e_constant)
+e_button = tkmac.Button(root, font = 'Helvetica', text = "e", height=80, width=80, bg='#1B2131', fg='white', activebackground='#171A2F', activeforeground='white', command=e_constant)
 e_button.grid(column = 1, row = 5)
 
 #Decimal Point
 
-Button_Decimal = tkmac.Button(root, font = 'Comfortaa', text = ".", height=80, width=80, bg='#1B2131', fg='white', activebackground='#171A2F', activeforeground='white', command=decimal)
+Button_Decimal = tkmac.Button(root, font = 'Helvetica', text = ".", height=80, width=80, bg='#1B2131', fg='white', activebackground='#171A2F', activeforeground='white', command=decimal)
 Button_Decimal.grid(column = 3, row = 5)
 
 
 #Operations
-add_button = tkmac.Button(root, font = 'Comfortaa', text = "+", height=80, width=80, bg='orange', activebackground='#FFAE00', activeforeground='black', command=add)
+add_button = tkmac.Button(root, font = 'Helvetica', text = "+", height=80, width=80, bg='orange', activebackground='#FFAE00', activeforeground='black', command=add)
 add_button.grid(column = 6, row = 1)
 
-subtract_button = tkmac.Button(root, font = 'Comfortaa', text = "–", height=80, width=80, bg='orange', activebackground='#FFAE00', activeforeground='black', command=subtract)
+subtract_button = tkmac.Button(root, font = 'Helvetica', text = "–", height=80, width=80, bg='orange', activebackground='#FFAE00', activeforeground='black', command=subtract)
 subtract_button.grid(column = 6, row = 2)
 
-multiply_button = tkmac.Button(root, font = 'Comfortaa', text = "x", height=80, width=80, bg='orange', activebackground='#FFAE00', activeforeground='black', command=multiply)
+multiply_button = tkmac.Button(root, font = 'Helvetica', text = "×", height=80, width=80, bg='orange', activebackground='#FFAE00', activeforeground='black', command=multiply)
 multiply_button.grid(column = 6, row = 3)
 
-divide_button = tkmac.Button(root, font = 'Comfortaa 16', text = "÷", height=80, width=80, bg='orange', activebackground='#FFAE00', activeforeground='black', command=divide)
+divide_button = tkmac.Button(root, font = 'Helvetica 16', text = "÷", height=80, width=80, bg='orange', activebackground='#FFAE00', activeforeground='black', command=divide)
 divide_button.grid(column = 6, row = 4)
 
-equal_button = tkmac.Button(root, font = 'Comfortaa', text = "=", height=80, width=80, bg='#1B2131', fg='white', activebackground='#171A2F', activeforeground='white', command=equal_to)
+equal_button = tkmac.Button(root, font = 'Helvetica', text = "=", height=80, width=80, bg='#1B2131', fg='white', activebackground='#171A2F', activeforeground='white', command=equal_to)
 equal_button.grid(column = 5, row = 5)
 
-percentage_button = tkmac.Button(root, font = 'Comfortaa', text = "%", height=80, width=80, bg='orange', activebackground='#FFAE00', activeforeground='black', command=percentage)
+percentage_button = tkmac.Button(root, font = 'Helvetica', text = "%", height=80, width=80, bg='orange', activebackground='#FFAE00', activeforeground='black', command=percentage)
 percentage_button.grid(column = 6, row = 5)
 
 #Clear
 
-clear_button = tkmac.Button(root, font = 'Comfortaa', text = "CLR", height=80, width=80, bg='#1B2131', fg='white', activebackground='#171A2F', activeforeground='white', command=clear)
+clear_button = tkmac.Button(root, font = 'Helvetica', text = "CLR", height=80, width=80, bg='#1B2131', fg='white', activebackground='#171A2F', activeforeground='white', command=clear)
 clear_button.grid(column = 2, row = 1)
 
 #Delete
 
-delete_button = tkmac.Button(root, font = 'Comfortaa', text = '⇦', height=80, width=80, bg='#1B2131', fg='white', activebackground='#171A2F', activeforeground='white', command=delete)
+delete_button = tkmac.Button(root, font = 'Helvetica', text = '⇦', height=80, width=80, bg='#1B2131', fg='white', activebackground='#171A2F', activeforeground='white', command=delete)
 delete_button.grid(column = 5, row = 1)
 
 #Memory
 
-memory_add = tkmac.Button(root, font = 'Comfortaa', text = "M+", height=80, width=80,  bg='#1B2131', fg='white', activebackground='#171A2F', activeforeground='white', command=memory_add)
+memory_add = tkmac.Button(root, font = 'Helvetica', text = "M+", height=80, width=80,  bg='#1B2131', fg='white', activebackground='#171A2F', activeforeground='white', command=memory_add)
 memory_add.grid(column = 3, row = 1)
 
-memory_recall = tkmac.Button(root, font = 'Comfortaa', text = "MR", height=80, width=80,  bg='#1B2131', fg='white', activebackground='#171A2F', activeforeground='white', command=memory_recall)
+memory_recall = tkmac.Button(root, font = 'Helvetica', text = "MR", height=80, width=80,  bg='#1B2131', fg='white', activebackground='#171A2F', activeforeground='white', command=memory_recall)
 memory_recall.grid(column = 4, row = 1)
 
 #Trigonometric functions
 
-sin_button = tkmac.Button(root, font = 'Comfortaa', text = "sin", height=80, width=80, bg='#1B2131', fg='white', activebackground='#171A2F', activeforeground='white', command=sine_function)
+sin_button = tkmac.Button(root, font = 'Helvetica', text = "sin", height=80, width=80, bg='#1B2131', fg='white', activebackground='#171A2F', activeforeground='white', command=sine_function)
 sin_button.grid(column = 2, row = 2)
 
-cos_button = tkmac.Button(root, font = 'Comfortaa', text = "cos", height=80, width=80, bg='#1B2131', fg='white', activebackground='#171A2F', activeforeground='white', command=cos_function)
+cos_button = tkmac.Button(root, font = 'Helvetica', text = "cos", height=80, width=80, bg='#1B2131', fg='white', activebackground='#171A2F', activeforeground='white', command=cos_function)
 cos_button.grid(column = 2, row = 3)
 
-tan_button = tkmac.Button(root, font = 'Comfortaa', text = "tan", height=80, width=80, bg='#1B2131', fg='white', activebackground='#171A2F', activeforeground='white', command=tan_function)
+tan_button = tkmac.Button(root, font = 'Helvetica', text = "tan", height=80, width=80, bg='#1B2131', fg='white', activebackground='#171A2F', activeforeground='white', command=tan_function)
 tan_button.grid(column = 2, row = 4)
 
 
 #Additional Math Functions
 
-reciprocal_button = tkmac.Button(root, font = 'Comfortaa', text = '1/x', height=80, width=80, bg='#1B2131', fg='white', activebackground='#171A2F', activeforeground='white', command=reciprocal)
+reciprocal_button = tkmac.Button(root, font = 'Helvetica', text = '1/x', height=80, width=80, bg='#1B2131', fg='white', activebackground='#171A2F', activeforeground='white', command=reciprocal)
 reciprocal_button.grid(column = 1, row = 1)
 
-power_button = tkmac.Button(root, font = 'Comfortaa', text = ("x\u02b8"), height=80, width=80, bg='#1B2131', fg='white', activebackground='#171A2F', activeforeground='white', command=power)
+power_button = tkmac.Button(root, font = 'Helvetica', text = ("x\u02b8"), height=80, width=80, bg='#1B2131', fg='white', activebackground='#171A2F', activeforeground='white', command=power)
 power_button.grid(column = 1, row = 2)
 
-sqrt_button = tkmac.Button(root, font = 'Comfortaa', text = "√x", height=80, width=80, bg='#1B2131', fg='white', activebackground='#171A2F', activeforeground='white', command=square_root)
+sqrt_button = tkmac.Button(root, font = 'Helvetica', text = "√x", height=80, width=80, bg='#1B2131', fg='white', activebackground='#171A2F', activeforeground='white', command=square_root)
 sqrt_button.grid(column = 1, row = 3)
 
-naturallog_button = tkmac.Button(root, font = 'Comfortaa', text = "log\u2091", height=80, width=80, bg='#1B2131', fg='white', activebackground='#171A2F', activeforeground='white', command=natural_log)
+naturallog_button = tkmac.Button(root, font = 'Helvetica', text = "log\u2091", height=80, width=80, bg='#1B2131', fg='white', activebackground='#171A2F', activeforeground='white', command=natural_log)
 naturallog_button.grid(column = 1, row = 4)
 
 #Binding keys to history functions
