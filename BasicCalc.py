@@ -42,7 +42,7 @@ else:
     Entry1.insert(0, '0')
 
 #Operations List  
-operation_list = ['+','-','x','÷']
+operation_list = ['+','-','x','÷','^']
 
 #Lists of Errors
 error_list = ['Syntax Error', 'Error: Division by Zero', 'Error: Empty Memory', 'undefined']
@@ -711,13 +711,13 @@ Button_Decimal.grid(column = 3, row = 5)
 add_button = tkmac.Button(root, font = 'Comfortaa', text = "+", height=80, width=80, bg='orange', activebackground='#FFAE00', activeforeground='black', command=add)
 add_button.grid(column = 6, row = 1)
 
-subtract_button = tkmac.Button(root, font = 'Comfortaa', text = "-", height=80, width=80, bg='orange', activebackground='#FFAE00', activeforeground='black', command=subtract)
+subtract_button = tkmac.Button(root, font = 'Comfortaa', text = "–", height=80, width=80, bg='orange', activebackground='#FFAE00', activeforeground='black', command=subtract)
 subtract_button.grid(column = 6, row = 2)
 
 multiply_button = tkmac.Button(root, font = 'Comfortaa', text = "x", height=80, width=80, bg='orange', activebackground='#FFAE00', activeforeground='black', command=multiply)
 multiply_button.grid(column = 6, row = 3)
 
-divide_button = tkmac.Button(root, font = 'Comfortaa', text = "÷", height=80, width=80, bg='orange', activebackground='#FFAE00', activeforeground='black', command=divide)
+divide_button = tkmac.Button(root, font = 'Comfortaa 16', text = "÷", height=80, width=80, bg='orange', activebackground='#FFAE00', activeforeground='black', command=divide)
 divide_button.grid(column = 6, row = 4)
 
 equal_button = tkmac.Button(root, font = 'Comfortaa', text = "=", height=80, width=80, bg='#1F2739', fg='white', activebackground='#171A2F', activeforeground='white', command=equal_to)
