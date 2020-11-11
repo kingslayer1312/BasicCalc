@@ -1,7 +1,6 @@
-#!usr/bin/env python3
 '''
 Author: Hrishikesh Naramparambath
-Basic Calc v1.0
+SciCalc 
 '''
 
 #Importing modules
@@ -14,10 +13,9 @@ import pandas as pd
 import cmath as cm
 import platform
 
-
 #Main Window
 root = tk.Tk()
-root.title("BasicCalc")
+root.title("SciCalc")
 root.resizable(0,0)
 root.configure(bg = '#1B2131')
 
@@ -33,9 +31,10 @@ expression = ''
 
 #Cross-platform feature
 if platform.system() == 'Darwin':
-    Entry1 = tk.Entry(width=21, bg='#1B2131', fg='white', borderwidth=0, justify='right', font='Helvetica 38 bold', highlightbackground='#1B2131')
+    Entry1 = tk.Entry(width=20, bg='#1B2131', fg='white', borderwidth=0, justify='right', font='Helvetica 40 bold', highlightbackground='#1B2131')
     Entry1.grid(row = 0, columnspan = 7)
     Entry1.insert(0, '0')
+
 else:
     Entry1 = tk.Entry(width=20, bg='#1B2131', fg='white', borderwidth=0, justify='right', font='Helvetica 32 bold', highlightbackground='#1B2131')
     Entry1.grid(row = 0, columnspan = 7)
@@ -199,10 +198,10 @@ def square_root():
             Entry1.insert(0, 'Syntax Error')
         elif eval(expression) >= 0:
             Entry1.delete(0, 'end')
-            Entry1.insert(0, math.sqrt((eval(expression))))
+            Entry1.insert(0, round(math.sqrt((eval(expression))),5))
         elif eval(expression) < 0:
             Entry1.delete(0, 'end')
-            Entry1.insert(0, cm.sqrt((eval(expression))))
+            Entry1.insert(0, round(cm.sqrt((eval(expression))),5))
     except:
         Entry1.delete(0, 'end')
         Entry1.insert(0, 'Syntax Error')
@@ -280,8 +279,12 @@ def equal_to():
     except:
         Entry1.delete(0, 'end')
         Entry1.insert(0, 'Syntax Error')
-    Entry1.config(state = tk.DISABLED, disabledbackground='#1B2131', disabledforeground='white')
+    if str(Entry1.get()) != '0':
+        Entry1.config(state = tk.DISABLED, disabledbackground='#1B2131', disabledforeground='white')
+    else:
+        pass
 
+    
 #Clear Button
 def clear():
     Entry1.config(state = tk.NORMAL)
@@ -400,16 +403,19 @@ def memory_recall():
     global memory
     global expression
     expression = str(Entry1.get())
-    memory = memory.replace(str(np.e), 'e')
-    memory = memory.replace(str(np.pi), 'π')
+    
     try:
         if expression.isnumeric() == False:
+            memory = memory.replace(str(np.e), 'e')
+            memory = memory.replace(str(np.pi), 'π')
             Entry1.insert('end', memory)
         else:
+            memory = memory.replace(str(np.e), 'e')
+            memory = memory.replace(str(np.pi), 'π')
             Entry1.delete(0, 'end')
             Entry1.insert('end', memory)
     except:
-        pass
+        Entry1.insert('end','')
 
 '''
 Trigonometric Functions
@@ -708,7 +714,7 @@ Button_Decimal.grid(column = 3, row = 5)
 
 
 #Operations
-add_button = tkmac.Button(root, font = 'Helvetica', text = "+", height=80, width=80, bg='orange', activebackground='#FFAE00', activeforeground='black', command=add)
+add_button = tkmac.Button(root, font = 'Helvetica 15', text = "+", height=80, width=80, bg='orange', activebackground='#FFAE00', activeforeground='black', command=add)
 add_button.grid(column = 6, row = 1)
 
 subtract_button = tkmac.Button(root, font = 'Helvetica', text = "–", height=80, width=80, bg='orange', activebackground='#FFAE00', activeforeground='black', command=subtract)
@@ -773,6 +779,5 @@ naturallog_button.grid(column = 1, row = 4)
 #Binding keys to history functions
 root.bind('<Up>', history_reverse)
 root.bind('<Down>', history_forward)
-
 
 root.mainloop()
