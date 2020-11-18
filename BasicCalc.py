@@ -42,7 +42,6 @@ else:
     Entry1.grid(row=0, columnspan=7)
     Entry1.insert(0, '0')
 
-
 # Operations List
 operation_list = ['+', '-', '×', '÷', '^']
 
@@ -97,10 +96,11 @@ def subtract():
     elif expression[-1] == '^':
         Entry1.insert('end', '-')
     else:
-        Entry1.insert('end', '-') 
+        Entry1.insert('end', '-')
+
+    # Multiplication
 
 
-# Multiplication
 def multiply():
     global expression
     expression = str(Entry1.get())
@@ -279,7 +279,7 @@ def equal_to(*args):
 
             elif 'e' in expression:
                 expression.index['e'] = x
-                if eval(expression[x - 1]).isnumeric() == True and expression[x + 1] in ['+','-']:
+                if eval(expression[x - 1]).isnumeric() == True and expression[x + 1] in ['+', '-']:
                     pass
                 else:
                     expression = expression.replace('e', str(np.e))
@@ -305,6 +305,7 @@ def equal_to(*args):
         Entry1.config(state=tk.DISABLED, disabledbackground='#1B2131', disabledforeground='white')
     else:
         pass
+
 
 # Clear Button
 def clear():
@@ -854,5 +855,17 @@ root.bind('<Up>', history_reverse)
 root.bind('<Down>', history_forward)
 root.bind('<Return>', equal_to)
 root.bind('<BackSpace>', delete)
+
+root.bind('1', button1_click)
+root.bind('2', button2_click)
+root.bind('3', button3_click)
+root.bind('4', button4_click)
+root.bind('5', button5_click)
+root.bind('6', button6_click)
+root.bind('7', button7_click)
+root.bind('8', button8_click)
+root.bind('9', button9_click)
+root.bind('0', button0_click)
+
 
 root.mainloop()
