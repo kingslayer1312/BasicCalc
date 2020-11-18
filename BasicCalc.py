@@ -15,7 +15,7 @@ import platform
 
 # Main Window
 root = tk.Tk()
-root.title("SciCalc")
+root.title("BasicCalc")
 root.resizable(0, 0)
 root.configure(bg='#1B2131')
 
@@ -31,16 +31,17 @@ expression = ''
 
 # Cross-platform feature
 if platform.system() == 'Darwin':
-    Entry1 = tk.Entry(width=20, bg='#1B2131', fg='white', borderwidth=0, justify='right', font='Helvetica 40 bold',
+    Entry1 = tk.Entry(width=20, bg='#1B2131', fg='white', borderwidth=0, justify='right', font='Arial 41 bold',
                       highlightbackground='#1B2131')
     Entry1.grid(row=0, columnspan=7)
     Entry1.insert(0, '0')
 
 else:
-    Entry1 = tk.Entry(width=20, bg='#1B2131', fg='white', borderwidth=0, justify='right', font='Helvetica 32 bold',
+    Entry1 = tk.Entry(width=20, bg='#1B2131', fg='white', borderwidth=0, justify='right', font='Arial 32 bold',
                       highlightbackground='#1B2131')
     Entry1.grid(row=0, columnspan=7)
     Entry1.insert(0, '0')
+
 
 # Operations List
 operation_list = ['+', '-', '×', '÷', '^']
@@ -251,7 +252,7 @@ def natural_log():
 y = []
 
 
-def equal_to():
+def equal_to(*args):
     global expression
     global Entry1
     global max_index
@@ -264,7 +265,7 @@ def equal_to():
 
     try:
         if expression[-2:] != '÷0':
-            if '×' or '÷' or '^' or 'π' or 'e' in expression:
+            if '×' or '÷' or '^' or 'π' in expression:
                 y = y + [expression]
                 database['History'] = y
                 print(database)
@@ -272,17 +273,24 @@ def equal_to():
                 expression = expression.replace('÷', '/')
                 expression = expression.replace('^', '**')
                 expression = expression.replace('π', str(np.pi))
-                expression = expression.replace('e', str(np.e))
                 database.to_csv(r'Calculations_History.csv')
                 Entry1.delete(0, 'end')
-                Entry1.insert(0, round(eval(expression), 5))
+                Entry1.insert(0, eval(expression))
+
+            elif 'e' in expression:
+                expression.index['e'] = x
+                if eval(expression[x - 1]).isnumeric() == True and expression[x + 1] in ['+','-']:
+                    pass
+                else:
+                    expression = expression.replace('e', str(np.e))
+
             else:
                 y = y + [expression]
                 database['History'] = y
                 print(database)
                 database.to_csv(r'Calculations_History.csv')
                 Entry1.delete(0, 'end')
-                Entry1.insert(0, round(eval(expression), 5))
+                Entry1.insert(0, eval(expression))
 
         elif expression[-2:] == '÷0':
             Entry1.delete(0, 'end')
@@ -298,7 +306,6 @@ def equal_to():
     else:
         pass
 
-
 # Clear Button
 def clear():
     Entry1.config(state=tk.NORMAL)
@@ -307,7 +314,7 @@ def clear():
 
 
 # Delete Button
-def delete():
+def delete(*args):
     global expression
     expression = str(Entry1.get())
     if Entry1.cget('state') == tk.DISABLED:
@@ -561,7 +568,7 @@ Numerals/Digits
 
 
 # Numbers Buttons
-def button1_click():
+def button1_click(*args):
     global expression
     expression = str(Entry1.get())
     if expression in error_list_for_numbers:
@@ -575,7 +582,7 @@ def button1_click():
         Entry1.insert('end', Button1.cget('text'))
 
 
-def button2_click():
+def button2_click(*args):
     global expression
     expression = str(Entry1.get())
     if expression in error_list_for_numbers:
@@ -589,7 +596,7 @@ def button2_click():
         Entry1.insert('end', Button2.cget('text'))
 
 
-def button3_click():
+def button3_click(*args):
     global expression
     expression = str(Entry1.get())
     if expression in error_list_for_numbers:
@@ -603,7 +610,7 @@ def button3_click():
         Entry1.insert('end', Button3.cget('text'))
 
 
-def button4_click():
+def button4_click(*args):
     global expression
     expression = str(Entry1.get())
     if expression in error_list_for_numbers:
@@ -617,7 +624,7 @@ def button4_click():
         Entry1.insert('end', Button4.cget('text'))
 
 
-def button5_click():
+def button5_click(*args):
     global expression
     expression = str(Entry1.get())
     if expression in error_list_for_numbers:
@@ -631,7 +638,7 @@ def button5_click():
         Entry1.insert('end', Button5.cget('text'))
 
 
-def button6_click():
+def button6_click(*args):
     global expression
     expression = str(Entry1.get())
     if expression in error_list_for_numbers:
@@ -645,7 +652,7 @@ def button6_click():
         Entry1.insert('end', Button6.cget('text'))
 
 
-def button7_click():
+def button7_click(*args):
     global expression
     expression = str(Entry1.get())
     if expression in error_list_for_numbers:
@@ -659,7 +666,7 @@ def button7_click():
         Entry1.insert('end', Button7.cget('text'))
 
 
-def button8_click():
+def button8_click(*args):
     global expression
     expression = str(Entry1.get())
     if expression in error_list_for_numbers:
@@ -673,7 +680,7 @@ def button8_click():
         Entry1.insert('end', Button8.cget('text'))
 
 
-def button9_click():
+def button9_click(*args):
     global expression
     expression = str(Entry1.get())
     if expression in error_list_for_numbers:
@@ -687,7 +694,7 @@ def button9_click():
         Entry1.insert('end', Button9.cget('text'))
 
 
-def button0_click():
+def button0_click(*args):
     global expression
     expression = str(Entry1.get())
     if expression in error_list_for_numbers:
@@ -845,5 +852,7 @@ naturallog_button.grid(column=1, row=4)
 # Binding keys to history functions
 root.bind('<Up>', history_reverse)
 root.bind('<Down>', history_forward)
+root.bind('<Return>', equal_to)
+root.bind('<BackSpace>', delete)
 
 root.mainloop()
