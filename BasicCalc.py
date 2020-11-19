@@ -1,17 +1,17 @@
 """
 Author: Hrishikesh Naramparambath
-SciCalc
+BasicCalc
 """
 
 #Importing modules
-
 import tkinter as tk
-from tkmacosx import Button
-import numpy as np
 import math
-import pandas as pd
 import cmath as cm
 import platform
+from tkmacosx import Button
+import numpy as np
+import pandas as pd
+
 
 #Main Window
 root = tk.Tk()
@@ -31,13 +31,13 @@ expression = ''
 
 #Cross-platform functionality
 if platform.system() == 'Darwin':
-    Entry1 = tk.Entry(width=20, bg='#1B2131', fg='white', borderwidth=0, justify='right', font='Arial 41 bold',
+    Entry1 = tk.Entry(width=20, bg='#1B2131', fg='white', borderwidth=0, justify='right', font='Helvetica 42 bold',
                       highlightbackground='#1B2131')
     Entry1.grid(row=0, columnspan=7)
     Entry1.insert(0, '0')
 
 else:
-    Entry1 = tk.Entry(width=20, bg='#1B2131', fg='white', borderwidth=0, justify='right', font='Arial 32 bold',
+    Entry1 = tk.Entry(width=20, bg='#1B2131', fg='white', borderwidth=0, justify='right', font='Helvetica 32 bold',
                       highlightbackground='#1B2131')
     Entry1.grid(row=0, columnspan=7)
     Entry1.insert(0, '0')
@@ -59,9 +59,9 @@ Arithmetic Operations
 Addition, Subtraction, Multiplication and Division
 '''
 
-
 #Addition
-def add():
+
+def add(*args):
     global expression
     expression = str(Entry1.get())
     Entry1.config(state=tk.NORMAL)
@@ -79,7 +79,7 @@ def add():
 
 
 #Subtraction
-def subtract():
+def subtract(*args):
     global expression
     expression = str(Entry1.get())
     Entry1.config(state=tk.NORMAL)
@@ -99,7 +99,7 @@ def subtract():
         Entry1.insert('end', '-')
 
 #Multiplication
-def multiply():
+def multiply(*args):
     global expression
     expression = str(Entry1.get())
     Entry1.config(state=tk.NORMAL)
@@ -117,7 +117,7 @@ def multiply():
 
 
 #Division
-def divide():
+def divide(*args):
     global expression
     expression = str(Entry1.get())
     Entry1.config(state=tk.NORMAL)
