@@ -3,7 +3,7 @@ Author: Hrishikesh Naramparambath
 SciCalc
 """
 
-# Importing modules
+#Importing modules
 
 import tkinter as tk
 from tkmacosx import Button
@@ -13,13 +13,13 @@ import pandas as pd
 import cmath as cm
 import platform
 
-# Main Window
+#Main Window
 root = tk.Tk()
 root.title("BasicCalc")
 root.resizable(0, 0)
 root.configure(bg='#1B2131')
 
-# Variables
+#Variables
 
 global max_index
 max_index = 0
@@ -29,7 +29,7 @@ cur_index = 0
 
 expression = ''
 
-# Cross-platform feature
+#Cross-platform functionality
 if platform.system() == 'Darwin':
     Entry1 = tk.Entry(width=20, bg='#1B2131', fg='white', borderwidth=0, justify='right', font='Arial 41 bold',
                       highlightbackground='#1B2131')
@@ -42,17 +42,17 @@ else:
     Entry1.grid(row=0, columnspan=7)
     Entry1.insert(0, '0')
 
-# Operations List
+#Operations List
 operation_list = ['+', '-', '×', '÷', '^']
 
-# Lists of Errors
+#Lists of Errors
 error_list = ['Syntax Error', 'Error: Division by Zero', 'Error: Empty Memory', 'undefined']
 error_list_for_reciprocal = error_list
 error_list_for_trig = [''] + error_list
 error_list_for_constant = ['0'] + error_list
 error_list_for_numbers = error_list_for_constant
 
-# Defining Functions
+#Defining Functions
 
 '''
 Arithmetic Operations
@@ -60,7 +60,7 @@ Addition, Subtraction, Multiplication and Division
 '''
 
 
-# Addition
+#Addition
 def add():
     global expression
     expression = str(Entry1.get())
@@ -78,7 +78,7 @@ def add():
         Entry1.insert('end', '+')
 
 
-# Subtraction
+#Subtraction
 def subtract():
     global expression
     expression = str(Entry1.get())
@@ -98,9 +98,7 @@ def subtract():
     else:
         Entry1.insert('end', '-')
 
-    # Multiplication
-
-
+#Multiplication
 def multiply():
     global expression
     expression = str(Entry1.get())
@@ -118,7 +116,7 @@ def multiply():
         Entry1.insert('end', '×')
 
 
-# Division
+#Division
 def divide():
     global expression
     expression = str(Entry1.get())
@@ -142,7 +140,7 @@ Reciprocal, square, sqrt, natural logarithm
 '''
 
 
-# Reciprocal Button
+#Reciprocal Button
 def reciprocal():
     global expression
     expression = str(Entry1.get())
@@ -173,7 +171,7 @@ def reciprocal():
     Entry1.config(state=tk.DISABLED, disabledbackground='#1B2131', disabledforeground='white')
 
 
-# Power
+#Power
 def power():
     global expression
     expression = str(Entry1.get())
@@ -191,8 +189,7 @@ def power():
         Entry1.insert('end', '^')
 
 
-# SQRT
-
+#SQRT
 def square_root():
     global expression
     expression = str(Entry1.get())
@@ -219,8 +216,7 @@ def square_root():
     Entry1.config(state=tk.DISABLED, disabledbackground='#1B2131', disabledforeground='white')
 
 
-# Natural Log
-
+#Natural Log
 def natural_log():
     global expression
     expression = str(Entry1.get())
@@ -247,10 +243,9 @@ def natural_log():
     Entry1.config(state=tk.DISABLED, disabledbackground='#1B2131', disabledforeground='white')
 
 
-# Miscellaneous
-# Equal To Sign
+#Miscellaneous
+#Equal To Sign
 y = []
-
 
 def equal_to(*args):
     global expression
@@ -307,14 +302,14 @@ def equal_to(*args):
         pass
 
 
-# Clear Button
+#Clear Button
 def clear():
     Entry1.config(state=tk.NORMAL)
     Entry1.delete(0, 'end')
     Entry1.insert(0, '0')
 
 
-# Delete Button
+#Delete Button
 def delete(*args):
     global expression
     expression = str(Entry1.get())
@@ -329,7 +324,7 @@ def delete(*args):
         Entry1.insert(0, expression[:-1])
 
 
-# Percentage
+#Percentage
 def percentage():
     global expression
     expression = str(Entry1.get())
@@ -352,7 +347,7 @@ def percentage():
         Entry1.insert(0, "Syntax Error")
 
 
-# Decimal Button
+#Decimal Button
 def decimal():
     global expression
     expression = str(Entry1.get())
@@ -368,7 +363,7 @@ History and Memory
 '''
 
 
-# History Recalling
+#History Recalling
 def history_reverse(event):
     global import_database
     global cur_index
@@ -403,7 +398,7 @@ def history_forward(event):
         Entry1.insert(0, expression)
 
 
-# Memory ADD
+#Memory ADD
 def memory_add():
     global memory
     global expression
@@ -427,7 +422,7 @@ def memory_add():
         Entry1.insert(0, 'Syntax Error')
 
 
-# Recall from Memory
+#Recall from Memory
 def memory_recall():
     global memory
     global expression
@@ -453,7 +448,7 @@ sine, cosine, tangent
 '''
 
 
-# Sine function
+#Sine function
 def sine_function():
     global expression
     expression = str(Entry1.get())
@@ -477,7 +472,7 @@ def sine_function():
     Entry1.config(state=tk.DISABLED, disabledbackground='#1B2131', disabledforeground='white')
 
 
-# Cos function
+#Cos function
 def cos_function():
     global expression
     expression = str(Entry1.get())
@@ -501,7 +496,7 @@ def cos_function():
     Entry1.config(state=tk.DISABLED, disabledbackground='#1B2131', disabledforeground='white')
 
 
-# Tan function
+#Tan function
 def tan_function():
     global expression
     expression = str(Entry1.get())
@@ -531,7 +526,7 @@ pi and Euler's number
 '''
 
 
-# Pi constant
+#Pi constant
 def pi_constant():
     global expression
     expression = str(Entry1.get())
@@ -547,7 +542,7 @@ def pi_constant():
         Entry1.insert('end', 'π')
 
 
-# e constant
+#e constant
 def e_constant():
     global expression
     expression = str(Entry1.get())
@@ -568,7 +563,7 @@ Numerals/Digits
 '''
 
 
-# Numbers Buttons
+#Numbers Buttons
 def button1_click(*args):
     global expression
     expression = str(Entry1.get())
@@ -713,7 +708,7 @@ def button0_click(*args):
 User Interface
 '''
 
-# Numbers
+#Numbers
 
 Button1 = Button(root, font='Helvetica 14', text="1", height=80, width=80, bg='#1B2131', fg='white',
                  activebackground='#171A2F', activeforeground='white', command=button1_click)
@@ -755,7 +750,7 @@ Button0 = Button(root, font='Helvetica 14', text="0", height=80, width=80, bg='#
                  activebackground='#171A2F', activeforeground='white', command=button0_click)
 Button0.grid(column=4, row=5)
 
-# Special constants
+#Special constants
 
 pi_button = Button(root, font='Helvetica 14', text="π", height=80, width=80, bg='#1B2131', fg='white',
                    activebackground='#171A2F', activeforeground='white', command=pi_constant)
@@ -765,13 +760,13 @@ e_button = Button(root, font='Helvetica 14', text="e", height=80, width=80, bg='
                   activebackground='#171A2F', activeforeground='white', command=e_constant)
 e_button.grid(column=1, row=5)
 
-# Decimal Point
+#Decimal Point
 
 Button_Decimal = Button(root, font='Helvetica 14', text=".", height=80, width=80, bg='#1B2131', fg='white',
                         activebackground='#171A2F', activeforeground='white', command=decimal)
 Button_Decimal.grid(column=3, row=5)
 
-# Operations
+#Operations
 add_button = Button(root, font='Helvetica 15', text="+", height=80, width=80, bg='orange', activebackground='#FFAE00',
                     activeforeground='black', command=add)
 add_button.grid(column=6, row=1)
@@ -796,13 +791,13 @@ percentage_button = Button(root, font='Helvetica 14', text="%", height=80, width
                            activebackground='#FFAE00', activeforeground='black', command=percentage)
 percentage_button.grid(column=6, row=5)
 
-# Clear
+#Clear
 
 clear_button = Button(root, font='Helvetica 14', text="CLR", height=80, width=80, bg='#1B2131', fg='white',
                       activebackground='#171A2F', activeforeground='white', command=clear)
 clear_button.grid(column=2, row=1)
 
-# Delete
+#Delete
 
 delete_button = Button(root, font='Helvetica 14', text='⇦', height=80, width=80, bg='#1B2131', fg='white',
                        activebackground='#171A2F', activeforeground='white', command=delete)
@@ -818,7 +813,7 @@ memory_recall = Button(root, font='Helvetica 14', text="MR", height=80, width=80
                        activebackground='#171A2F', activeforeground='white', command=memory_recall)
 memory_recall.grid(column=4, row=1)
 
-# Trigonometric functions
+#Trigonometric functions
 
 sin_button = Button(root, font='Helvetica 14', text="sin", height=80, width=80, bg='#1B2131', fg='white',
                     activebackground='#171A2F', activeforeground='white', command=sine_function)
@@ -832,7 +827,7 @@ tan_button = Button(root, font='Helvetica 14', text="tan", height=80, width=80, 
                     activebackground='#171A2F', activeforeground='white', command=tan_function)
 tan_button.grid(column=2, row=4)
 
-# Additional Math Functions
+#Additional Math Functions
 
 reciprocal_button = Button(root, font='Helvetica 14', text='1/x', height=80, width=80, bg='#1B2131', fg='white',
                            activebackground='#171A2F', activeforeground='white', command=reciprocal)
@@ -850,7 +845,7 @@ naturallog_button = Button(root, font='Helvetica 14', text="ln", height=80, widt
                            activebackground='#171A2F', activeforeground='white', command=natural_log)
 naturallog_button.grid(column=1, row=4)
 
-# Binding keys to history functions
+#Binding keys to history functions
 root.bind('<Up>', history_reverse)
 root.bind('<Down>', history_forward)
 root.bind('<Return>', equal_to)
