@@ -21,10 +21,10 @@ root.configure(bg='#1B2131')
 
 #Variables
 
-global max_index
+#global max_index
 max_index = 0
 
-global cur_index
+#global cur_index
 cur_index = 0
 
 expression = ''
@@ -33,20 +33,24 @@ expression = ''
 if platform.system() == 'Darwin':
     Entry1 = tk.Entry(width=28, bg='#1B2131', fg='white', borderwidth=0, justify='right', font='Helvetica 30 bold',
                       highlightbackground='#1B2131')
-    Entry1.grid(row=0, columnspan=7)
+    Entry1.grid(row=0, columnspan=7, sticky='we')
     Entry1.insert(0, '0')
     Entry2 = tk.Entry(width=20, bg='#1B2131', fg='white', borderwidth=0, justify='right', font='Helvetica 42 bold',
                       highlightbackground='#1B2131')
-    Entry2.grid(row=1, columnspan=7)
+    Entry2.grid(row=1, columnspan=7, sticky='we')
+    
+    font = "Helvetica 14"
 
 else:
-    Entry1 = tk.Entry(width=20, bg='#1B2131', fg='white', borderwidth=0, justify='right', font='Helvetica 20 bold',
+    Entry1 = tk.Entry(width=32, bg='#1B2131', fg='white', borderwidth=0, justify='right', font='Helvetica 20 bold',
                       highlightbackground='#1B2131')
-    Entry1.grid(row=0, columnspan=7)
+    Entry1.grid(row=0, columnspan=7, sticky='we')
     Entry1.insert(0, '0')
     Entry2 = tk.Entry(width=20, bg='#1B2131', fg='white', borderwidth=0, justify='right', font='Helvetica 32 bold',
                       highlightbackground='#1B2131')
-    Entry2.grid(row=1, columnspan=7)
+    Entry2.grid(row=1, columnspan=7, sticky='we')
+    
+    font = "Helvetica"
 
 
 #Operations List
@@ -597,7 +601,7 @@ def button1_click(*args):
     if expression in error_list_for_numbers:
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button1.cget('text'))
-    elif Entry1.cget('state') == tk.DISABLED:
+    elif Entry2.cget('state') == tk.DISABLED:
         Entry1.config(state=tk.NORMAL)
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button1.cget('text'))
@@ -611,7 +615,7 @@ def button2_click(*args):
     if expression in error_list_for_numbers:
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button2.cget('text'))
-    elif Entry1.cget('state') == tk.DISABLED:
+    elif Entry2.cget('state') == tk.DISABLED:
         Entry1.config(state=tk.NORMAL)
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button2.cget('text'))
@@ -625,7 +629,7 @@ def button3_click(*args):
     if expression in error_list_for_numbers:
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button3.cget('text'))
-    elif Entry1.cget('state') == tk.DISABLED:
+    elif Entry2.cget('state') == tk.DISABLED:
         Entry1.config(state=tk.NORMAL)
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button3.cget('text'))
@@ -639,7 +643,7 @@ def button4_click(*args):
     if expression in error_list_for_numbers:
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button4.cget('text'))
-    elif Entry1.cget('state') == tk.DISABLED:
+    elif Entry2.cget('state') == tk.DISABLED:
         Entry1.config(state=tk.NORMAL)
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button4.cget('text'))
@@ -653,7 +657,7 @@ def button5_click(*args):
     if expression in error_list_for_numbers:
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button5.cget('text'))
-    elif Entry1.cget('state') == tk.DISABLED:
+    elif Entry2.cget('state') == tk.DISABLED:
         Entry1.config(state=tk.NORMAL)
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button5.cget('text'))
@@ -667,7 +671,7 @@ def button6_click(*args):
     if expression in error_list_for_numbers:
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button6.cget('text'))
-    elif Entry1.cget('state') == tk.DISABLED:
+    elif Entry2.cget('state') == tk.DISABLED:
         Entry1.config(state=tk.NORMAL)
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button6.cget('text'))
@@ -681,7 +685,7 @@ def button7_click(*args):
     if expression in error_list_for_numbers:
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button7.cget('text'))
-    elif Entry1.cget('state') == tk.DISABLED:
+    elif Entry2.cget('state') == tk.DISABLED:
         Entry1.config(state=tk.NORMAL)
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button7.cget('text'))
@@ -695,7 +699,7 @@ def button8_click(*args):
     if expression in error_list_for_numbers:
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button8.cget('text'))
-    elif Entry1.cget('state') == tk.DISABLED:
+    elif Entry2.cget('state') == tk.DISABLED:
         Entry1.config(state=tk.NORMAL)
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button8.cget('text'))
@@ -709,7 +713,7 @@ def button9_click(*args):
     if expression in error_list_for_numbers:
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button9.cget('text'))
-    elif Entry1.cget('state') == tk.DISABLED:
+    elif Entry2.cget('state') == tk.DISABLED:
         Entry1.config(state=tk.NORMAL)
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button9.cget('text'))
@@ -723,7 +727,7 @@ def button0_click(*args):
     if expression in error_list_for_numbers:
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button0.cget('text'))
-    elif Entry1.cget('state') == tk.DISABLED:
+    elif Entry2.cget('state') == tk.DISABLED:
         Entry1.config(state=tk.NORMAL)
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button0.cget('text'))
@@ -737,138 +741,138 @@ User Interface
 
 #Numbers
 
-Button1 = Button(root, font='Helvetica 14', text="1", height=80, width=80, bg='#1B2131', fg='white',
+Button1 = Button(root, font = font, text="1", height=80, width=80, bg='#1B2131', fg='white',
                  activebackground='#171A2F', activeforeground='white', command=button1_click)
 Button1.grid(column=3, row=5)
 
-Button2 = Button(root, font='Helvetica 14', text="2", height=80, width=80, bg='#1B2131', fg='white',
+Button2 = Button(root, font = font, text="2", height=80, width=80, bg='#1B2131', fg='white',
                  activebackground='#171A2F', activeforeground='white', command=button2_click)
 Button2.grid(column=4, row=5)
 
-Button3 = Button(root, font='Helvetica 14', text="3", height=80, width=80, bg='#1B2131', fg='white',
+Button3 = Button(root, font = font, text="3", height=80, width=80, bg='#1B2131', fg='white',
                  activebackground='#171A2F', activeforeground='white', command=button3_click)
 Button3.grid(column=5, row=5)
 
-Button4 = Button(root, font='Helvetica 14', text="4", height=80, width=80, bg='#1B2131', fg='white',
+Button4 = Button(root, font = font, text="4", height=80, width=80, bg='#1B2131', fg='white',
                  activebackground='#171A2F', activeforeground='white', command=button4_click)
 Button4.grid(column=3, row=4)
 
-Button5 = Button(root, font='Helvetica 14', text="5", height=80, width=80, bg='#1B2131', fg='white',
+Button5 = Button(root, font = font, text="5", height=80, width=80, bg='#1B2131', fg='white',
                  activebackground='#171A2F', activeforeground='white', command=button5_click)
 Button5.grid(column=4, row=4)
 
-Button6 = Button(root, font='Helvetica 14', text="6", height=80, width=80, bg='#1B2131', fg='white',
+Button6 = Button(root, font = font, text="6", height=80, width=80, bg='#1B2131', fg='white',
                  activebackground='#171A2F', activeforeground='white', command=button6_click)
 Button6.grid(column=5, row=4)
 
-Button7 = Button(root, font='Helvetica 14', text="7", height=80, width=80, bg='#1B2131', fg='white',
+Button7 = Button(root, font = font, text="7", height=80, width=80, bg='#1B2131', fg='white',
                  activebackground='#171A2F', activeforeground='white', command=button7_click)
 Button7.grid(column=3, row=3)
 
-Button8 = Button(root, font='Helvetica 14', text="8", height=80, width=80, bg='#1B2131', fg='white',
+Button8 = Button(root, font = font, text="8", height=80, width=80, bg='#1B2131', fg='white',
                  activebackground='#171A2F', activeforeground='white', command=button8_click)
 Button8.grid(column=4, row=3)
 
-Button9 = Button(root, font='Helvetica 14', text="9", height=80, width=80, bg='#1B2131', fg='white',
+Button9 = Button(root, font = font, text="9", height=80, width=80, bg='#1B2131', fg='white',
                  activebackground='#171A2F', activeforeground='white', command=button9_click)
 Button9.grid(column=5, row=3)
 
-Button0 = Button(root, font='Helvetica 14', text="0", height=80, width=80, bg='#1B2131', fg='white',
+Button0 = Button(root, font = font, text="0", height=80, width=80, bg='#1B2131', fg='white',
                  activebackground='#171A2F', activeforeground='white', command=button0_click)
 Button0.grid(column=4, row=6)
 
 #Special constants
 
-pi_button = Button(root, font='Helvetica 14', text="π", height=80, width=80, bg='#1B2131', fg='white',
+pi_button = Button(root, font = font, text="π", height=80, width=80, bg='#1B2131', fg='white',
                    activebackground='#171A2F', activeforeground='white', command=pi_constant)
 pi_button.grid(column=2, row=6)
 
-e_button = Button(root, font='Helvetica 14', text="e", height=80, width=80, bg='#1B2131', fg='white',
+e_button = Button(root, font = font, text="e", height=80, width=80, bg='#1B2131', fg='white',
                   activebackground='#171A2F', activeforeground='white', command=e_constant)
 e_button.grid(column=1, row=6)
 
 #Decimal Point
 
-Button_Decimal = Button(root, font='Helvetica 14', text=".", height=80, width=80, bg='#1B2131', fg='white',
+Button_Decimal = Button(root, font = font, text=".", height=80, width=80, bg='#1B2131', fg='white',
                         activebackground='#171A2F', activeforeground='white', command=decimal)
 Button_Decimal.grid(column=3, row=6)
 
 #Operations
-add_button = Button(root, font='Helvetica 15', text="+", height=80, width=80, bg='orange', activebackground='#FFAE00',
+add_button = Button(root, font = font, text="+", height=80, width=80, bg='orange', activebackground='#FFAE00',
                     activeforeground='black', command=add)
 add_button.grid(column=6, row=2)
 
-subtract_button = Button(root, font='Helvetica', text="–", height=80, width=80, bg='orange', activebackground='#FFAE00',
+subtract_button = Button(root, font = font, text="–", height=80, width=80, bg='orange', activebackground='#FFAE00',
                          activeforeground='black', command=subtract)
 subtract_button.grid(column=6, row=3)
 
-multiply_button = Button(root, font='Helvetica', text="×", height=80, width=80, bg='orange', activebackground='#FFAE00',
+multiply_button = Button(root, font = font, text="×", height=80, width=80, bg='orange', activebackground='#FFAE00',
                          activeforeground='black', command=multiply)
 multiply_button.grid(column=6, row=4)
 
-divide_button = Button(root, font='Helvetica 16', text="÷", height=80, width=80, bg='orange',
+divide_button = Button(root, font = font, text="÷", height=80, width=80, bg='orange',
                        activebackground='#FFAE00', activeforeground='black', command=divide)
 divide_button.grid(column=6, row=5)
 
-equal_button = Button(root, font='Helvetica 14', text="=", height=80, width=80, bg='#1B2131', fg='white',
+equal_button = Button(root, font = font, text="=", height=80, width=80, bg='#1B2131', fg='white',
                       activebackground='#171A2F', activeforeground='white', command=equal_to)
 equal_button.grid(column=5, row=6)
 
-percentage_button = Button(root, font='Helvetica 14', text="%", height=80, width=80, bg='orange',
+percentage_button = Button(root, font = font, text="%", height=80, width=80, bg='orange',
                            activebackground='#FFAE00', activeforeground='black', command=percentage)
 percentage_button.grid(column=6, row=6)
 
 #Clear
 
-clear_button = Button(root, font='Helvetica 14', text="CLR", height=80, width=80, bg='#1B2131', fg='white',
+clear_button = Button(root, font = font, text="CLR", height=80, width=80, bg='#1B2131', fg='white',
                       activebackground='#171A2F', activeforeground='white', command=clear)
 clear_button.grid(column=2, row=2)
 
 #Delete
 
-delete_button = Button(root, font='Helvetica 14', text='⇦', height=80, width=80, bg='#1B2131', fg='white',
+delete_button = Button(root, font = font, text='⇦', height=80, width=80, bg='#1B2131', fg='white',
                        activebackground='#171A2F', activeforeground='white', command=delete)
 delete_button.grid(column=5, row=2)
 
 # Memory
 
-memory_add = Button(root, font='Helvetica 14', text="M+", height=80, width=80, bg='#1B2131', fg='white',
+memory_add = Button(root, font = font, text="M+", height=80, width=80, bg='#1B2131', fg='white',
                     activebackground='#171A2F', activeforeground='white', command=memory_add)
 memory_add.grid(column=3, row=2)
 
-memory_recall = Button(root, font='Helvetica 14', text="MR", height=80, width=80, bg='#1B2131', fg='white',
+memory_recall = Button(root, font = font, text="MR", height=80, width=80, bg='#1B2131', fg='white',
                        activebackground='#171A2F', activeforeground='white', command=memory_recall)
 memory_recall.grid(column=4, row=2)
 
 #Trigonometric functions
 
-sin_button = Button(root, font='Helvetica 14', text="sin", height=80, width=80, bg='#1B2131', fg='white',
+sin_button = Button(root, font = font, text="sin", height=80, width=80, bg='#1B2131', fg='white',
                     activebackground='#171A2F', activeforeground='white', command=sine_function)
 sin_button.grid(column=2, row=3)
 
-cos_button = Button(root, font='Helvetica 14', text="cos", height=80, width=80, bg='#1B2131', fg='white',
+cos_button = Button(root, font = font, text="cos", height=80, width=80, bg='#1B2131', fg='white',
                     activebackground='#171A2F', activeforeground='white', command=cos_function)
 cos_button.grid(column=2, row=4)
 
-tan_button = Button(root, font='Helvetica 14', text="tan", height=80, width=80, bg='#1B2131', fg='white',
+tan_button = Button(root, font = font, text="tan", height=80, width=80, bg='#1B2131', fg='white',
                     activebackground='#171A2F', activeforeground='white', command=tan_function)
 tan_button.grid(column=2, row=5)
 
 #Additional Math Functions
 
-reciprocal_button = Button(root, font='Helvetica 14', text='1/x', height=80, width=80, bg='#1B2131', fg='white',
+reciprocal_button = Button(root, font = font, text='1/x', height=80, width=80, bg='#1B2131', fg='white',
                            activebackground='#171A2F', activeforeground='white', command=reciprocal)
 reciprocal_button.grid(column=1, row=2)
 
-power_button = Button(root, font='Helvetica 14', text=("x\u02b8"), height=80, width=80, bg='#1B2131', fg='white',
+power_button = Button(root, font = font, text=("x\u02b8"), height=80, width=80, bg='#1B2131', fg='white',
                       activebackground='#171A2F', activeforeground='white', command=power)
 power_button.grid(column=1, row=3)
 
-sqrt_button = Button(root, font='Helvetica 14', text="√x", height=80, width=80, bg='#1B2131', fg='white',
+sqrt_button = Button(root, font = font, text="√x", height=80, width=80, bg='#1B2131', fg='white',
                      activebackground='#171A2F', activeforeground='white', command=square_root)
 sqrt_button.grid(column=1, row=4)
 
-naturallog_button = Button(root, font='Helvetica 14', text="ln", height=80, width=80, bg='#1B2131', fg='white',
+naturallog_button = Button(root, font = font, text="ln", height=80, width=80, bg='#1B2131', fg='white',
                            activebackground='#171A2F', activeforeground='white', command=natural_log)
 naturallog_button.grid(column=1, row=5)
 
