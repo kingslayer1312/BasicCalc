@@ -4,7 +4,7 @@ Author: Hrishikesh Naramparambath
 BasicCalc
 """
 
-# Importing modules
+# Importing python modules
 import tkinter as tk
 import math
 import cmath as cm
