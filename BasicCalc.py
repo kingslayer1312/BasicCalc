@@ -68,7 +68,7 @@ Addition, Subtraction, Multiplication and Division
 '''
 
 
-# result function
+# Result function
 
 def result():
     if Entry2['state'] == tk.DISABLED:
@@ -90,7 +90,13 @@ def add(*args):
     global expression
     result()
     expression = str(Entry1.get())
-    if expression in ('', '0'):
+    Entry2['state'] = tk.NORMAL
+    if str(Entry2.get()) in error_list:
+        Entry1.delete(0, 'end')
+        Entry2.delete(0, 'end')
+        Entry1.insert(0, '0')
+        Entry2.insert(0, '0')
+    elif expression in ('', '0'):
         pass
     elif expression in operation_list:
         Entry1.delete(0, 'end')
@@ -108,7 +114,13 @@ def subtract(*args):
     global expression
     result()
     expression = str(Entry1.get())
-    if expression == '':
+    Entry2['state'] = tk.NORMAL
+    if str(Entry2.get()) in error_list:
+        Entry1.delete(0, 'end')
+        Entry2.delete(0, 'end')
+        Entry1.insert(0, '0')
+        Entry2.insert(0, '0')
+    elif expression == '':
         Entry1.insert('end', '-')
     elif expression == '0':
         Entry1.delete(0, 'end')
@@ -129,8 +141,13 @@ def multiply(*args):
     global expression
     result()
     expression = str(Entry1.get())
-
-    if expression in ('', '0'):
+    Entry2['state'] = tk.NORMAL
+    if str(Entry2.get()) in error_list:
+        Entry1.delete(0, 'end')
+        Entry2.delete(0, 'end')
+        Entry1.insert(0, '0')
+        Entry2.insert(0, '0')
+    elif expression in ('', '0'):
         pass
     elif expression in operation_list:
         Entry1.delete(0, 'end')
@@ -148,8 +165,13 @@ def divide(*args):
     global expression
     result()
     expression = str(Entry1.get())
-
-    if expression in ('', '0'):
+    Entry2['state'] = tk.NORMAL
+    if str(Entry2.get()) in error_list:
+        Entry1.delete(0, 'end')
+        Entry2.delete(0, 'end')
+        Entry1.insert(0, '0')
+        Entry2.insert(0, '0')
+    elif expression in ('', '0'):
         pass
     elif expression in operation_list:
         Entry1.delete(0, 'end')
@@ -210,7 +232,13 @@ def power():
     global expression
     expression = str(Entry1.get())
     result()
-    if expression in (''):
+    Entry2['state'] = tk.NORMAL
+    if str(Entry2.get()) in error_list:
+        Entry1.delete(0, 'end')
+        Entry2.delete(0, 'end')
+        Entry1.insert(0, '0')
+        Entry2.insert(0, '0')
+    elif expression in (''):
         pass
     elif expression in operation_list:
         Entry1.delete(0, 'end')
@@ -304,47 +332,46 @@ def equal_to(*args):
     expression = str(Entry1.get())
     database = pd.DataFrame()
 
-    #try:
-    if expression[-2:] != '÷0':
-        if '×' or '÷' or '^' or 'π' or 'e' in expression:
-            y = y + [expression]
-            database['History'] = y
-            print(database)
-            expression = expression.replace('×', '*')
-            expression = expression.replace('÷', '/')
-            expression = expression.replace('^', '**')
-            expression = expression.replace('π', str(np.pi))
-            database.to_csv(r'Calculations_History.csv')
-            x = expression.index('e')
-            if expression[x - 1].isnumeric() == True and expression[x + 1] in ['+', '-']:
-                pass
+    try:
+        if expression[-2:] != '÷0':
+            if '×' or '÷' or '^' or 'π' or 'e' in expression:
+                y = y + [expression]
+                database['History'] = y
+                print(database)
+                expression = expression.replace('×', '*')
+                expression = expression.replace('÷', '/')
+                expression = expression.replace('^', '**')
+                expression = expression.replace('π', str(np.pi))
+                database.to_csv(r'Calculations_History.csv')
+                if 'e' in expression:
+                    x = expression.index('e')
+                    if expression[x - 1].isnumeric() == True and (expression[x + 1].isnumeric() == True or expression[x + 1] in ['+', '-']):
+                        pass
+                    else:
+                        expression = expression.replace('e', str(np.e))
+                Entry2.delete(0, 'end')
+                Entry2.insert(0, eval(expression))
             else:
-                expression = expression.replace('e', str(np.e))
+                y = y + [expression]
+                database['History'] = y
+                print(database)
+                database.to_csv(r'Calculations_History.csv')
+                Entry2.delete(0, 'end')
+                Entry2.insert(0, eval(expression))
+
+        elif expression[-2:] == '÷0':
             Entry2.delete(0, 'end')
-            Entry2.insert(0, eval(expression))
+            Entry2.insert(0, "Error: Division by Zero")
 
-
-        else:
-            y = y + [expression]
-            database['History'] = y
-            print(database)
-            database.to_csv(r'Calculations_History.csv')
-            Entry2.delete(0, 'end')
-            Entry2.insert(0, eval(expression))
-
-    elif expression[-2:] == '÷0':
+        max_index = max_index + 1
+        cur_index = max_index
+    except:
         Entry2.delete(0, 'end')
-        Entry2.insert(0, "Error: Division by Zero")
-
-    max_index = max_index + 1
-    cur_index = max_index
-    '''except:
-        Entry2.delete(0, 'end')
-        Entry2.insert(0, 'Syntax Error')'''
-    '''if str(Entry1.get()) != '0':
+        Entry2.insert(0, 'Syntax Error')
+    if str(Entry1.get()) != '0':
         Entry2.config(state=tk.DISABLED, disabledbackground='#1B2131', disabledforeground='white')
     else:
-        pass'''
+        pass
 
 
 
