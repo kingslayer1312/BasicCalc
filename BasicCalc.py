@@ -72,14 +72,16 @@ Addition, Subtraction, Multiplication and Division
 
 def result():
     if Entry2['state'] == tk.DISABLED:
-        Entry2.config(state=tk.NORMAL)
-        if str(Entry2.get()) not in error_list:
-            Entry1.delete(0, 'end')
-            Entry1.insert(0, str(Entry2.get()))
-        else:
-            Entry2.delete(0, 'end')
+        if Entry1.get() not in ('0',''):
+            if str(Entry2.get()) not in error_list:
+                Entry2['state'] = tk.NORMAL
+                Entry1.delete(0, 'end')
+                Entry1.insert(0, str(Entry2.get()))
+            else:
+                Entry2.delete(0, 'end')
     else:
         pass
+
 
 
 # Addition
@@ -344,10 +346,9 @@ def equal_to(*args):
         Entry1.insert('0', 0)
         Entry2.delete(0, 'end')
         Entry2.insert(0, 'Syntax Error')
-    if str(Entry2.get()) != '0':
-        Entry2.config(state=tk.DISABLED, disabledbackground='#1B2131', disabledforeground='white')
-    else:
-        pass
+
+    Entry2.config(state=tk.DISABLED, disabledbackground='#1B2131', disabledforeground='white')
+
 
 
 # Clear Button
@@ -363,10 +364,10 @@ def clear():
 def delete(*args):
     global expression
     expression = str(Entry1.get())
-    if Entry1.cget('state') == tk.DISABLED:
-        Entry1.config(state=tk.NORMAL)
-        Entry1.delete(0, 'end')
-    elif len(expression) == 1:
+    if len(expression) == 1:
+        Entry2['state'] = tk.NORMAL
+        Entry2.delete(0, 'end')
+        Entry2.insert(0, '0')
         Entry1.delete(0, 'end')
         Entry1.insert(0, '0')
     else:
@@ -640,7 +641,7 @@ def button1_click(*args):
     if expression in error_list_for_numbers:
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button1.cget('text'))
-    elif Entry2.cget('state') == tk.DISABLED and Entry1.get() != '':
+    elif Entry2.cget('state') == tk.DISABLED:
         Entry2.config(state=tk.NORMAL)
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button1.cget('text'))
@@ -654,7 +655,7 @@ def button2_click(*args):
     if expression in error_list_for_numbers:
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button2.cget('text'))
-    elif Entry2.cget('state') == tk.DISABLED and Entry1.get() != '':
+    elif Entry2.cget('state') == tk.DISABLED:
         Entry2.config(state=tk.NORMAL)
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button2.cget('text'))
@@ -668,7 +669,7 @@ def button3_click(*args):
     if expression in error_list_for_numbers:
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button3.cget('text'))
-    elif Entry2.cget('state') == tk.DISABLED and Entry1.get() != '':
+    elif Entry2.cget('state') == tk.DISABLED:
         Entry2.config(state=tk.NORMAL)
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button3.cget('text'))
@@ -682,7 +683,7 @@ def button4_click(*args):
     if expression in error_list_for_numbers:
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button4.cget('text'))
-    elif Entry2.cget('state') == tk.DISABLED and Entry1.get() != '':
+    elif Entry2.cget('state') == tk.DISABLED:
         Entry2.config(state=tk.NORMAL)
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button4.cget('text'))
@@ -696,7 +697,7 @@ def button5_click(*args):
     if expression in error_list_for_numbers:
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button5.cget('text'))
-    elif Entry2.cget('state') == tk.DISABLED and Entry1.get() != '':
+    elif Entry2.cget('state') == tk.DISABLED:
         Entry2.config(state=tk.NORMAL)
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button5.cget('text'))
@@ -710,7 +711,7 @@ def button6_click(*args):
     if expression in error_list_for_numbers:
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button6.cget('text'))
-    elif Entry2.cget('state') == tk.DISABLED and Entry1.get() != '':
+    elif Entry2.cget('state') == tk.DISABLED:
         Entry2.config(state=tk.NORMAL)
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button6.cget('text'))
@@ -724,7 +725,7 @@ def button7_click(*args):
     if expression in error_list_for_numbers:
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button7.cget('text'))
-    elif Entry2.cget('state') == tk.DISABLED and Entry1.get() != '':
+    elif Entry2.cget('state') == tk.DISABLED:
         Entry2.config(state=tk.NORMAL)
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button7.cget('text'))
@@ -738,7 +739,7 @@ def button8_click(*args):
     if expression in error_list_for_numbers:
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button8.cget('text'))
-    elif Entry2.cget('state') == tk.DISABLED and Entry1.get() != '':
+    elif Entry2.cget('state') == tk.DISABLED:
         Entry2.config(state=tk.NORMAL)
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button8.cget('text'))
@@ -752,7 +753,7 @@ def button9_click(*args):
     if expression in error_list_for_numbers:
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button9.cget('text'))
-    elif Entry2.cget('state') == tk.DISABLED and Entry1.get() != '':
+    elif Entry2.cget('state') == tk.DISABLED:
         Entry2.config(state=tk.NORMAL)
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button9.cget('text'))
@@ -766,7 +767,7 @@ def button0_click(*args):
     if expression in error_list_for_numbers:
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button0.cget('text'))
-    elif Entry2.cget('state') == tk.DISABLED and Entry1.get() != '':
+    elif Entry2.cget('state') == tk.DISABLED:
         Entry2.config(state=tk.NORMAL)
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button0.cget('text'))
