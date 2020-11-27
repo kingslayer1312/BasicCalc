@@ -298,56 +298,53 @@ def equal_to(*args):
     global max_index
     global cur_index
     global database
+    global x
     global y
 
-    Entry2.config(state=tk.NORMAL)
     expression = str(Entry1.get())
     database = pd.DataFrame()
 
-    try:
-        if expression[-2:] != '÷0':
-            if '×' or '÷' or '^' or 'π' in expression:
-                y = y + [expression]
-                database['History'] = y
-                print(database)
-                expression = expression.replace('×', '*')
-                expression = expression.replace('÷', '/')
-                expression = expression.replace('^', '**')
-                expression = expression.replace('π', str(np.pi))
-                database.to_csv(r'Calculations_History.csv')
-                Entry2.delete(0, 'end')
-                Entry2.insert(0, eval(expression))
-
-            elif 'e' in expression:
-                x = expression.index['e']
-                if eval(expression[x - 1]).isnumeric() == True and expression[x + 1] in ['+', '-']:
-                    pass
-                else:
-                    expression = expression.replace('e', str(np.e))
-
+    #try:
+    if expression[-2:] != '÷0':
+        if '×' or '÷' or '^' or 'π' or 'e' in expression:
+            y = y + [expression]
+            database['History'] = y
+            print(database)
+            expression = expression.replace('×', '*')
+            expression = expression.replace('÷', '/')
+            expression = expression.replace('^', '**')
+            expression = expression.replace('π', str(np.pi))
+            database.to_csv(r'Calculations_History.csv')
+            x = expression.index('e')
+            if expression[x - 1].isnumeric() == True and expression[x + 1] in ['+', '-']:
+                pass
             else:
-                y = y + [expression]
-                database['History'] = y
-                print(database)
-                database.to_csv(r'Calculations_History.csv')
-                Entry2.delete(0, 'end')
-                Entry2.insert(0, eval(expression))
-
-        elif expression[-2:] == '÷0':
-            Entry1.delete(0, 'end')
-            Entry1.insert('0', 0)
+                expression = expression.replace('e', str(np.e))
             Entry2.delete(0, 'end')
-            Entry2.insert(0, "Error: Division by Zero")
+            Entry2.insert(0, eval(expression))
 
-        max_index = max_index + 1
-        cur_index = max_index
-    except:
-        Entry1.delete(0, 'end')
-        Entry1.insert('0', 0)
+
+        else:
+            y = y + [expression]
+            database['History'] = y
+            print(database)
+            database.to_csv(r'Calculations_History.csv')
+            Entry2.delete(0, 'end')
+            Entry2.insert(0, eval(expression))
+
+    elif expression[-2:] == '÷0':
         Entry2.delete(0, 'end')
-        Entry2.insert(0, 'Syntax Error')
+        Entry2.insert(0, "Error: Division by Zero")
 
-    Entry2.config(state=tk.DISABLED, disabledbackground='#1B2131', disabledforeground='white')
+    max_index = max_index + 1
+    cur_index = max_index
+    '''except:
+        Entry2.delete(0, 'end')
+        Entry2.insert(0, 'Syntax Error')'''
+    '''if str(Entry1.get()) != '0':
+        Entry2.config(state=tk.DISABLED, disabledbackground='#1B2131', disabledforeground='white')
+    else:
+        pass'''
 
 
 
