@@ -31,21 +31,21 @@ expression = ''
 
 # Cross-platform functionality
 if platform.system() == 'Darwin':
-    Entry1 = tk.Entry(bg='#1B2131', width=28, fg='white', borderwidth=0, justify='right', font='Helvetica 30 bold',
+    Entry1 = tk.Entry(bg='#1B2131', width=28, fg='white', borderwidth=0, justify='right', font='Helvetica 30',
                       highlightbackground='#1B2131')
     Entry1.grid(row=0, columnspan=7, sticky='we')
     Entry1.insert(0, '0')
-    Entry2 = tk.Entry(width=20, bg='#1B2131', fg='white', borderwidth=0, justify='right', font='Helvetica 42 bold',
+    Entry2 = tk.Entry(width=20, bg='#1B2131', fg='white', borderwidth=0, justify='right', font='Helvetica 42',
                       highlightbackground='#1B2131')
     Entry2.grid(row=1, columnspan=7, sticky='we')
     font = "Helvetica 14"
 
 else:
-    Entry1 = tk.Entry(width=32, bg='#1B2131', fg='white', borderwidth=0, justify='right', font='Helvetica 20 bold',
+    Entry1 = tk.Entry(width=32, bg='#1B2131', fg='white', borderwidth=0, justify='right', font='Helvetica 20',
                       highlightbackground='#1B2131')
     Entry1.grid(row=0, columnspan=7, sticky='we')
     Entry1.insert(0, '0')
-    Entry2 = tk.Entry(width=20, bg='#1B2131', fg='white', borderwidth=0, justify='right', font='Helvetica 32 bold',
+    Entry2 = tk.Entry(width=20, bg='#1B2131', fg='white', borderwidth=0, justify='right', font='Helvetica 32',
                       highlightbackground='#1B2131')
     Entry2.grid(row=1, columnspan=7, sticky='we')
     font = "Helvetica"
