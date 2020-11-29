@@ -38,7 +38,7 @@ if platform.system() == 'Darwin':
     Entry2 = tk.Entry(width=20, bg='#1B2131', fg='white', borderwidth=0, justify='right', font='Avenir 42',
                       highlightbackground='#1B2131')
     Entry2.grid(row=1, columnspan=7, sticky='we')
-    font = "Helvetica 14"
+    font = "Avenir 16"
 
 else:
     Entry1 = tk.Entry(width=32, bg='#1B2131', fg='white', borderwidth=0, justify='right', font='Avenir 20',
@@ -48,7 +48,7 @@ else:
     Entry2 = tk.Entry(width=20, bg='#1B2131', fg='white', borderwidth=0, justify='right', font='Avenir 32',
                       highlightbackground='#1B2131')
     Entry2.grid(row=1, columnspan=7, sticky='we')
-    font = "Helvetica"
+    font = "Avenir"
 
 # Operations List
 operation_list = ['+', '-', '×', '÷', '^']
