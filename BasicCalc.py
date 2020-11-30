@@ -446,7 +446,7 @@ History and Memory
 def history_reverse(event):
     global import_database
     global cur_index
-    Entry1.config(state=tk.NORMAL)
+    Entry2.config(state=tk.NORMAL)
     import_database = pd.read_csv(r'Calculations_History.csv')
     if cur_index > 0:
         Entry1.delete(0, 'end')
@@ -461,7 +461,7 @@ def history_forward(event):
     global import_database
     global cur_index
     global expression
-    Entry1.config(state=tk.NORMAL)
+    Entry2.config(state=tk.NORMAL)
     import_database = pd.read_csv(r'Calculations_History.csv')
     expression = str(Entry1.get())
     try:
