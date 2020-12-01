@@ -10,7 +10,6 @@ import math
 import cmath as cm
 import platform
 from tkmacosx import Button
-import numpy as np
 import pandas as pd
 
 # Main Window
@@ -202,8 +201,8 @@ def reciprocal():
         expression = expression.replace('×', '*')
         expression = expression.replace('÷', '/')
         expression = expression.replace('^', '**')
-        expression = expression.replace('π', str(np.pi))
-        expression = expression.replace('e', str(np.e))
+        expression = expression.replace('π', str(math.pi))
+        expression = expression.replace('e', str(math.e))
     try:
         if expression in error_list_for_reciprocal:
             Entry1.delete(0, 'end')
@@ -260,8 +259,8 @@ def square_root():
         expression = expression.replace('×', '*')
         expression = expression.replace('÷', '/')
         expression = expression.replace('^', '**')
-        expression = expression.replace('π', str(np.pi))
-        expression = expression.replace('e', str(np.e))
+        expression = expression.replace('π', str(math.pi))
+        expression = expression.replace('e', str(math.e))
     try:
         if expression in error_list_for_reciprocal:
             Entry1.delete(0, 'end')
@@ -291,8 +290,8 @@ def natural_log():
         expression = expression.replace('×', '*')
         expression = expression.replace('÷', '/')
         expression = expression.replace('^', '**')
-        expression = expression.replace('π', str(np.pi))
-        expression = expression.replace('e', str(np.e))
+        expression = expression.replace('π', str(math.pi))
+        expression = expression.replace('e', str(math.e))
     try:
         if expression in error_list_for_reciprocal:
             Entry1.delete(0, 'end')
@@ -341,14 +340,14 @@ def equal_to(*args):
                 expression = expression.replace('×', '*')
                 expression = expression.replace('÷', '/')
                 expression = expression.replace('^', '**')
-                expression = expression.replace('π', str(np.pi))
+                expression = expression.replace('π', str(math.pi))
                 database.to_csv(r'Calculations_History.csv')
                 if 'e' in expression:
                     x = expression.index('e')
                     if expression[x - 1].isnumeric() == True and (expression[x + 1].isnumeric() == True or expression[x + 1] in ['+', '-']):
                         pass
                     else:
-                        expression = expression.replace('e', str(np.e))
+                        expression = expression.replace('e', str(math.e))
                 Entry2.delete(0, 'end')
                 Entry2.insert(0, eval(expression))
             else:
@@ -408,8 +407,8 @@ def percentage():
         expression = expression.replace('×', '*')
         expression = expression.replace('÷', '/')
         expression = expression.replace('^', '**')
-        expression = expression.replace('π', str(np.pi))
-        expression = expression.replace('e', str(np.e))
+        expression = expression.replace('π', str(math.pi))
+        expression = expression.replace('e', str(math.e))
     try:
         if '÷0' in expression:
             Entry1.delete(0, 'end')
@@ -446,8 +445,10 @@ History and Memory
 def history_reverse(event):
     global import_database
     global cur_index
+    Entry1.config(state=tk.NORMAL)
     Entry2.config(state=tk.NORMAL)
     import_database = pd.read_csv(r'Calculations_History.csv')
+
     if cur_index > 0:
         Entry1.delete(0, 'end')
         Entry1.insert(0, import_database.at[cur_index - 1, 'History'])
@@ -455,6 +456,7 @@ def history_reverse(event):
     else:
         Entry1.delete(0, 'end')
         Entry1.insert(0, import_database.at[0, 'History'])
+
 
 
 def history_forward(event):
@@ -487,8 +489,8 @@ def memory_add():
         expression = expression.replace('×', '*')
         expression = expression.replace('÷', '/')
         expression = expression.replace('^', '**')
-        expression = expression.replace('π', str(np.pi))
-        expression = expression.replace('e', str(np.e))
+        expression = expression.replace('π', str(math.pi))
+        expression = expression.replace('e', str(math.e))
     try:
         if expression not in ('', '0'):
             memory = str(eval(expression))
@@ -513,12 +515,12 @@ def memory_recall():
 
     try:
         if expression.isnumeric() == False:
-            memory = memory.replace(str(np.e), 'e')
-            memory = memory.replace(str(np.pi), 'π')
+            memory = memory.replace(str(math.e), 'e')
+            memory = memory.replace(str(math.pi), 'π')
             Entry1.insert('end', memory)
         else:
-            memory = memory.replace(str(np.e), 'e')
-            memory = memory.replace(str(np.pi), 'π')
+            memory = memory.replace(str(math.e), 'e')
+            memory = memory.replace(str(math.pi), 'π')
             Entry1.delete(0, 'end')
             Entry1.insert('end', memory)
     except:
@@ -540,8 +542,8 @@ def sine_function():
         expression = expression.replace('×', '*')
         expression = expression.replace('÷', '/')
         expression = expression.replace('^', '**')
-        expression = expression.replace('π', str(np.pi))
-        expression = expression.replace('e', str(np.e))
+        expression = expression.replace('π', str(math.pi))
+        expression = expression.replace('e', str(math.e))
     try:
         if expression in error_list_for_trig:
             Entry1.delete(0, 'end')
@@ -550,7 +552,7 @@ def sine_function():
             Entry2.insert(0, "Syntax Error")
         else:
             Entry2.delete(0, 'end')
-            Entry2.insert(0, round(np.sin(eval(expression)), 5))
+            Entry2.insert(0, round(math.sin(eval(expression)), 5))
     except:
         Entry1.delete(0, 'end')
         Entry1.insert('0', 0)
@@ -568,8 +570,8 @@ def cos_function():
         expression = expression.replace('×', '*')
         expression = expression.replace('÷', '/')
         expression = expression.replace('^', '**')
-        expression = expression.replace('π', str(np.pi))
-        expression = expression.replace('e', str(np.e))
+        expression = expression.replace('π', str(math.pi))
+        expression = expression.replace('e', str(math.e))
     try:
         if expression in error_list_for_trig:
             Entry1.delete(0, 'end')
@@ -578,7 +580,7 @@ def cos_function():
             Entry2.insert(0, "Syntax Error")
         else:
             Entry2.delete(0, 'end')
-            Entry2.insert(0, round(np.cos(eval(expression)), 5))
+            Entry2.insert(0, round(math.cos(eval(expression)), 5))
     except:
         Entry1.delete(0, 'end')
         Entry1.insert('0', 0)
@@ -596,8 +598,8 @@ def tan_function():
         expression = expression.replace('×', '*')
         expression = expression.replace('÷', '/')
         expression = expression.replace('^', '**')
-        expression = expression.replace('π', str(np.pi))
-        expression = expression.replace('e', str(np.e))
+        expression = expression.replace('π', str(math.pi))
+        expression = expression.replace('e', str(math.e))
     try:
         if expression in error_list_for_trig:
             Entry1.delete(0, 'end')
@@ -606,7 +608,7 @@ def tan_function():
             Entry2.insert(0, "Syntax Error")
         else:
             Entry2.delete(0, 'end')
-            Entry2.insert(0, round(np.tan(eval(expression)), 5))
+            Entry2.insert(0, round(math.tan(eval(expression)), 5))
     except:
         Entry1.delete(0, 'end')
         Entry1.insert('0', 0)
@@ -940,7 +942,7 @@ naturallog_button = Button(root, font=font, text="ln", height=80, width=80, bg='
                            activebackground='#171A2F', activeforeground='white', command=natural_log)
 naturallog_button.grid(column=1, row=5)
 
-# Binding keys to history functions
+# Binding keys
 root.bind('<Up>', history_reverse)
 root.bind('<Down>', history_forward)
 root.bind('<Return>', equal_to)
