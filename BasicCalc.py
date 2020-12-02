@@ -17,6 +17,7 @@ root = tk.Tk()
 root.title("BasicCalc")
 root.resizable(0, 0)
 root.configure(bg='#1B2131')
+root.geometry("+500+150")
 
 # Variables
 
@@ -26,6 +27,7 @@ max_index = 0
 global cur_index
 cur_index = 0
 
+global expression
 expression = ''
 
 # Cross-platform functionality
@@ -71,7 +73,7 @@ Addition, Subtraction, Multiplication and Division
 
 def result():
     if Entry2['state'] == tk.DISABLED:
-        if Entry1.get() not in ('0',''):
+        if Entry1.get() not in ('0', ''):
             if str(Entry2.get()) not in error_list:
                 Entry2['state'] = tk.NORMAL
                 Entry1.delete(0, 'end')
@@ -81,14 +83,16 @@ def result():
     else:
         pass
 
+
 # Replacer
 
 def replacer():
+    global expression
     expression = expression.replace('×', '*')
     expression = expression.replace('÷', '/')
     expression = expression.replace('^', '**')
-    expression = expression.replace('π', str(math.pi))
     expression = expression.replace('e', str(math.e))
+    expression = expression.replace('π', str(math.pi))
 
 
 # Addition
@@ -245,7 +249,7 @@ def power():
         Entry2.delete(0, 'end')
         Entry1.insert(0, '0')
         Entry2.insert(0, '0')
-    elif expression in (''):
+    elif expression in '':
         pass
     elif expression in operation_list:
         Entry1.delete(0, 'end')
@@ -344,7 +348,8 @@ def equal_to(*args):
                 database.to_csv(r'Calculations_History.csv')
                 if 'e' in expression:
                     x = expression.index('e')
-                    if expression[x - 1].isnumeric() == True and (expression[x + 1].isnumeric() == True or expression[x + 1] in ['+', '-']):
+                    if expression[x - 1].isnumeric() == True and (
+                            expression[x + 1].isnumeric() == True or expression[x + 1] in ['+', '-']):
                         pass
                     else:
                         expression = expression.replace('e', str(math.e))
@@ -373,7 +378,6 @@ def equal_to(*args):
         pass
 
 
-
 # Clear Button
 def clear():
     Entry2.config(state=tk.NORMAL)
@@ -387,8 +391,8 @@ def clear():
 def delete(*args):
     global expression
     expression = str(Entry1.get())
+    Entry2['state'] = tk.NORMAL
     if len(expression) == 1:
-        Entry2['state'] = tk.NORMAL
         Entry2.delete(0, 'end')
         Entry2.insert(0, '0')
         Entry1.delete(0, 'end')
@@ -452,7 +456,6 @@ def history_reverse(event):
     else:
         Entry1.delete(0, 'end')
         Entry1.insert(0, import_database.at[0, 'History'])
-
 
 
 def history_forward(event):
