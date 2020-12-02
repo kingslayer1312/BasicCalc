@@ -82,7 +82,7 @@ def result():
                 Entry2.delete(0, 'end')
     else:
         pass
-
+    Entry2['state'] = tk.DISABLED
 
 # Replacer
 
@@ -101,7 +101,7 @@ def add(*args):
     global expression
     result()
     expression = str(Entry1.get())
-    Entry2['state'] = tk.NORMAL
+    Entry2.config(state=tk.NORMAL)
     if str(Entry2.get()) in error_list:
         Entry1.delete(0, 'end')
         Entry2.delete(0, 'end')
@@ -120,12 +120,13 @@ def add(*args):
         Entry1.insert('end', '+')
 
 
+
 # Subtraction
 def subtract(*args):
     global expression
     result()
     expression = str(Entry1.get())
-    Entry2['state'] = tk.NORMAL
+    Entry2.config(state=tk.NORMAL)
     if str(Entry2.get()) in error_list:
         Entry1.delete(0, 'end')
         Entry2.delete(0, 'end')
@@ -136,15 +137,16 @@ def subtract(*args):
     elif expression == '0':
         Entry1.delete(0, 'end')
         Entry1.insert('end', '-')
-    elif expression[-1] in ['+', '-', '×', '÷']:
+    elif expression[-1] in ['+', '-']:
         Entry1.delete(0, 'end')
         expression = expression[:-1]
         Entry1.insert(0, expression)
         Entry1.insert('end', '-')
-    elif expression[-1] == '^':
+    elif expression[-1] in ['^', '×', '÷']:
         Entry1.insert('end', '-')
     else:
         Entry1.insert('end', '-')
+
 
 
 # Multiplication
@@ -152,7 +154,7 @@ def multiply(*args):
     global expression
     result()
     expression = str(Entry1.get())
-    Entry2['state'] = tk.NORMAL
+    Entry2.config(state=tk.NORMAL)
     if str(Entry2.get()) in error_list:
         Entry1.delete(0, 'end')
         Entry2.delete(0, 'end')
@@ -169,6 +171,7 @@ def multiply(*args):
         Entry1.insert('end', '×')
     else:
         Entry1.insert('end', '×')
+
 
 
 # Division
@@ -176,7 +179,7 @@ def divide(*args):
     global expression
     result()
     expression = str(Entry1.get())
-    Entry2['state'] = tk.NORMAL
+    Entry2.config(state=tk.NORMAL)
     if str(Entry2.get()) in error_list:
         Entry1.delete(0, 'end')
         Entry2.delete(0, 'end')
@@ -193,6 +196,7 @@ def divide(*args):
         Entry1.insert('end', '÷')
     else:
         Entry1.insert('end', '÷')
+
 
 
 '''
@@ -348,8 +352,9 @@ def equal_to(*args):
                 database.to_csv(r'Calculations_History.csv')
                 if 'e' in expression:
                     x = expression.index('e')
-                    if expression[x - 1].isnumeric() == True and (
-                            expression[x + 1].isnumeric() == True or expression[x + 1] in ['+', '-']):
+                    if expression[0] == 'e':
+                        expression = expression.replace('e', str(math.e))
+                    if expression[x - 1].isnumeric() == True and expression[x + 1] == '-':
                         pass
                     else:
                         expression = expression.replace('e', str(math.e))
@@ -372,10 +377,9 @@ def equal_to(*args):
     except:
         Entry2.delete(0, 'end')
         Entry2.insert(0, 'Syntax Error')
-    if str(Entry1.get()) != '0':
-        Entry2.config(state=tk.DISABLED, disabledbackground='#1B2131', disabledforeground='white')
-    else:
-        pass
+
+    Entry2.config(state=tk.DISABLED, disabledbackground='#1B2131', disabledforeground='white')
+
 
 
 # Clear Button
@@ -385,8 +389,7 @@ def clear():
     Entry1.insert(0, '0')
     Entry2.delete(0, 'end')
     Entry2.insert(0, '0')
-
-
+    Entry2.config(state=tk.DISABLED, disabledbackground='#1B2131', disabledforeground='white')
 # Delete Button
 def delete(*args):
     global expression
@@ -400,7 +403,7 @@ def delete(*args):
     else:
         Entry1.delete(0, 'end')
         Entry1.insert(0, expression[:-1])
-
+    Entry2['state'] = tk.DISABLED
 
 # Percentage
 def percentage():
@@ -423,8 +426,7 @@ def percentage():
         Entry1.insert('0', 0)
         Entry2.delete(0, 'end')
         Entry2.insert(0, "Syntax Error")
-
-
+    Entry2.config(state=tk.DISABLED, disabledbackground='#1B2131', disabledforeground='white')
 # Decimal Button
 def decimal(*args):
     global expression
@@ -445,7 +447,6 @@ History and Memory
 def history_reverse(event):
     global import_database
     global cur_index
-    Entry1.config(state=tk.NORMAL)
     Entry2.config(state=tk.NORMAL)
     import_database = pd.read_csv(r'Calculations_History.csv')
 
@@ -456,6 +457,7 @@ def history_reverse(event):
     else:
         Entry1.delete(0, 'end')
         Entry1.insert(0, import_database.at[0, 'History'])
+    Entry2.config(state=tk.DISABLED, disabledbackground='#1B2131', disabledforeground='white')
 
 
 def history_forward(event):
@@ -476,6 +478,7 @@ def history_forward(event):
     except KeyError:
         Entry1.delete(0, 'end')
         Entry1.insert(0, expression)
+    Entry2.config(state=tk.DISABLED, disabledbackground='#1B2131', disabledforeground='white')
 
 
 # Memory ADD
@@ -500,6 +503,7 @@ def memory_add():
         Entry1.insert('0', 0)
         Entry2.delete(0, 'end')
         Entry2.insert(0, 'Syntax Error')
+    Entry2.config(state=tk.DISABLED, disabledbackground='#1B2131', disabledforeground='white')
 
 
 # Recall from Memory
@@ -507,7 +511,6 @@ def memory_recall():
     global memory
     global expression
     expression = str(Entry1.get())
-
     try:
         if expression.isnumeric() == False:
             memory = memory.replace(str(math.e), 'e')
@@ -610,8 +613,7 @@ pi and Euler's number
 def pi_constant():
     global expression
     expression = str(Entry1.get())
-    Entry1.config(state=tk.NORMAL)
-
+    Entry2['state'] = tk.NORMAL
     if expression in error_list_for_constant:
         Entry1.delete(0, 'end')
         Entry1.insert('end', 'π')
@@ -626,8 +628,7 @@ def pi_constant():
 def e_constant():
     global expression
     expression = str(Entry1.get())
-    Entry1.config(state=tk.NORMAL)
-
+    Entry2['state'] = tk.NORMAL
     if expression in error_list_for_constant:
         Entry1.delete(0, 'end')
         Entry1.insert('end', 'e')
@@ -644,9 +645,11 @@ Numerals/Digits
 
 
 # Numbers Buttons
+
 def button1_click(*args):
     global expression
     expression = str(Entry1.get())
+    Entry2.config(state=tk.NORMAL)
     if expression in error_list_for_numbers:
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button1.cget('text'))
@@ -656,11 +659,14 @@ def button1_click(*args):
         Entry1.insert('end', Button1.cget('text'))
     else:
         Entry1.insert('end', Button1.cget('text'))
+
+
 
 
 def button2_click(*args):
     global expression
     expression = str(Entry1.get())
+    Entry2.config(state=tk.NORMAL)
     if expression in error_list_for_numbers:
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button2.cget('text'))
@@ -670,11 +676,13 @@ def button2_click(*args):
         Entry1.insert('end', Button2.cget('text'))
     else:
         Entry1.insert('end', Button2.cget('text'))
+
 
 
 def button3_click(*args):
     global expression
     expression = str(Entry1.get())
+    Entry2.config(state=tk.NORMAL)
     if expression in error_list_for_numbers:
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button3.cget('text'))
@@ -684,11 +692,13 @@ def button3_click(*args):
         Entry1.insert('end', Button3.cget('text'))
     else:
         Entry1.insert('end', Button3.cget('text'))
+
 
 
 def button4_click(*args):
     global expression
     expression = str(Entry1.get())
+    Entry2.config(state=tk.NORMAL)
     if expression in error_list_for_numbers:
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button4.cget('text'))
@@ -698,11 +708,13 @@ def button4_click(*args):
         Entry1.insert('end', Button4.cget('text'))
     else:
         Entry1.insert('end', Button4.cget('text'))
+
 
 
 def button5_click(*args):
     global expression
     expression = str(Entry1.get())
+    Entry2.config(state=tk.NORMAL)
     if expression in error_list_for_numbers:
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button5.cget('text'))
@@ -712,11 +724,13 @@ def button5_click(*args):
         Entry1.insert('end', Button5.cget('text'))
     else:
         Entry1.insert('end', Button5.cget('text'))
+
 
 
 def button6_click(*args):
     global expression
     expression = str(Entry1.get())
+    Entry2.config(state=tk.NORMAL)
     if expression in error_list_for_numbers:
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button6.cget('text'))
@@ -726,11 +740,13 @@ def button6_click(*args):
         Entry1.insert('end', Button6.cget('text'))
     else:
         Entry1.insert('end', Button6.cget('text'))
+
 
 
 def button7_click(*args):
     global expression
     expression = str(Entry1.get())
+    Entry2.config(state=tk.NORMAL)
     if expression in error_list_for_numbers:
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button7.cget('text'))
@@ -740,11 +756,13 @@ def button7_click(*args):
         Entry1.insert('end', Button7.cget('text'))
     else:
         Entry1.insert('end', Button7.cget('text'))
+
 
 
 def button8_click(*args):
     global expression
     expression = str(Entry1.get())
+    Entry2.config(state=tk.NORMAL)
     if expression in error_list_for_numbers:
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button8.cget('text'))
@@ -754,11 +772,13 @@ def button8_click(*args):
         Entry1.insert('end', Button8.cget('text'))
     else:
         Entry1.insert('end', Button8.cget('text'))
+
 
 
 def button9_click(*args):
     global expression
     expression = str(Entry1.get())
+    Entry2.config(state=tk.NORMAL)
     if expression in error_list_for_numbers:
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button9.cget('text'))
@@ -768,11 +788,13 @@ def button9_click(*args):
         Entry1.insert('end', Button9.cget('text'))
     else:
         Entry1.insert('end', Button9.cget('text'))
+
 
 
 def button0_click(*args):
     global expression
     expression = str(Entry1.get())
+    Entry2.config(state=tk.NORMAL)
     if expression in error_list_for_numbers:
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button0.cget('text'))
@@ -782,6 +804,7 @@ def button0_click(*args):
         Entry1.insert('end', Button0.cget('text'))
     else:
         Entry1.insert('end', Button0.cget('text'))
+
 
 
 '''
