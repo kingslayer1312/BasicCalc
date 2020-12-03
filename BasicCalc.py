@@ -84,6 +84,7 @@ def result():
         pass
     Entry2['state'] = tk.DISABLED
 
+
 # Replacer
 
 def replacer():
@@ -120,7 +121,6 @@ def add(*args):
         Entry1.insert('end', '+')
 
 
-
 # Subtraction
 def subtract(*args):
     global expression
@@ -148,7 +148,6 @@ def subtract(*args):
         Entry1.insert('end', '-')
 
 
-
 # Multiplication
 def multiply(*args):
     global expression
@@ -173,7 +172,6 @@ def multiply(*args):
         Entry1.insert('end', '×')
 
 
-
 # Division
 def divide(*args):
     global expression
@@ -196,7 +194,6 @@ def divide(*args):
         Entry1.insert('end', '÷')
     else:
         Entry1.insert('end', '÷')
-
 
 
 '''
@@ -381,9 +378,8 @@ def equal_to(*args):
     Entry2.config(state=tk.DISABLED, disabledbackground='#1B2131', disabledforeground='white')
 
 
-
 # Clear Button
-def clear():
+def clear(*args):
     Entry2.config(state=tk.NORMAL)
     Entry1.delete(0, 'end')
     Entry1.insert(0, '0')
@@ -405,6 +401,7 @@ def delete(*args):
     else:
         Entry1.delete(0, 'end')
         Entry1.insert(0, expression[:-1])
+
 
 # Percentage
 def percentage():
@@ -428,6 +425,8 @@ def percentage():
         Entry2.delete(0, 'end')
         Entry2.insert(0, "Syntax Error")
     Entry2.config(state=tk.DISABLED, disabledbackground='#1B2131', disabledforeground='white')
+
+
 # Decimal Button
 def decimal(*args):
     global expression
@@ -611,7 +610,7 @@ pi and Euler's number
 
 
 # Pi constant
-def pi_constant():
+def pi_constant(*args):
     global expression
     expression = str(Entry1.get())
     Entry2['state'] = tk.NORMAL
@@ -626,7 +625,7 @@ def pi_constant():
 
 
 # e constant
-def e_constant():
+def e_constant(*args):
     global expression
     expression = str(Entry1.get())
     Entry2['state'] = tk.NORMAL
@@ -662,8 +661,6 @@ def button1_click(*args):
         Entry1.insert('end', Button1.cget('text'))
 
 
-
-
 def button2_click(*args):
     global expression
     expression = str(Entry1.get())
@@ -677,7 +674,6 @@ def button2_click(*args):
         Entry1.insert('end', Button2.cget('text'))
     else:
         Entry1.insert('end', Button2.cget('text'))
-
 
 
 def button3_click(*args):
@@ -695,7 +691,6 @@ def button3_click(*args):
         Entry1.insert('end', Button3.cget('text'))
 
 
-
 def button4_click(*args):
     global expression
     expression = str(Entry1.get())
@@ -709,7 +704,6 @@ def button4_click(*args):
         Entry1.insert('end', Button4.cget('text'))
     else:
         Entry1.insert('end', Button4.cget('text'))
-
 
 
 def button5_click(*args):
@@ -727,7 +721,6 @@ def button5_click(*args):
         Entry1.insert('end', Button5.cget('text'))
 
 
-
 def button6_click(*args):
     global expression
     expression = str(Entry1.get())
@@ -741,7 +734,6 @@ def button6_click(*args):
         Entry1.insert('end', Button6.cget('text'))
     else:
         Entry1.insert('end', Button6.cget('text'))
-
 
 
 def button7_click(*args):
@@ -759,7 +751,6 @@ def button7_click(*args):
         Entry1.insert('end', Button7.cget('text'))
 
 
-
 def button8_click(*args):
     global expression
     expression = str(Entry1.get())
@@ -773,7 +764,6 @@ def button8_click(*args):
         Entry1.insert('end', Button8.cget('text'))
     else:
         Entry1.insert('end', Button8.cget('text'))
-
 
 
 def button9_click(*args):
@@ -791,7 +781,6 @@ def button9_click(*args):
         Entry1.insert('end', Button9.cget('text'))
 
 
-
 def button0_click(*args):
     global expression
     expression = str(Entry1.get())
@@ -805,7 +794,6 @@ def button0_click(*args):
         Entry1.insert('end', Button0.cget('text'))
     else:
         Entry1.insert('end', Button0.cget('text'))
-
 
 
 '''
@@ -959,6 +947,9 @@ root.bind('<minus>', subtract)
 root.bind('<asterisk>', multiply)
 root.bind('<slash>', divide)
 root.bind('<period>', decimal)
+root.bind('<e>', e_constant)
+root.bind('<p>', pi_constant)
+root.bind('<Escape>', clear)
 
 root.bind('1', button1_click)
 root.bind('2', button2_click)
