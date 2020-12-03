@@ -390,6 +390,8 @@ def clear():
     Entry2.delete(0, 'end')
     Entry2.insert(0, '0')
     Entry2.config(state=tk.DISABLED, disabledbackground='#1B2131', disabledforeground='white')
+
+
 # Delete Button
 def delete(*args):
     global expression
@@ -403,7 +405,6 @@ def delete(*args):
     else:
         Entry1.delete(0, 'end')
         Entry1.insert(0, expression[:-1])
-    Entry2['state'] = tk.DISABLED
 
 # Percentage
 def percentage():
