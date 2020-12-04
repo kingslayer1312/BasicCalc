@@ -103,12 +103,7 @@ def add(*args):
     result()
     expression = str(Entry1.get())
     Entry2.config(state=tk.NORMAL)
-    if str(Entry2.get()) in error_list:
-        Entry1.delete(0, 'end')
-        Entry2.delete(0, 'end')
-        Entry1.insert(0, '0')
-        Entry2.insert(0, '0')
-    elif expression in ('', '0'):
+    if expression in ('', '0'):
         pass
     elif expression in operation_list:
         Entry1.delete(0, 'end')
@@ -127,12 +122,7 @@ def subtract(*args):
     result()
     expression = str(Entry1.get())
     Entry2.config(state=tk.NORMAL)
-    if str(Entry2.get()) in error_list:
-        Entry1.delete(0, 'end')
-        Entry2.delete(0, 'end')
-        Entry1.insert(0, '0')
-        Entry2.insert(0, '0')
-    elif expression == '':
+    if expression == '':
         Entry1.insert('end', '-')
     elif expression == '0':
         Entry1.delete(0, 'end')
@@ -154,12 +144,7 @@ def multiply(*args):
     result()
     expression = str(Entry1.get())
     Entry2.config(state=tk.NORMAL)
-    if str(Entry2.get()) in error_list:
-        Entry1.delete(0, 'end')
-        Entry2.delete(0, 'end')
-        Entry1.insert(0, '0')
-        Entry2.insert(0, '0')
-    elif expression in ('', '0'):
+    if expression in ('', '0'):
         pass
     elif expression in operation_list:
         Entry1.delete(0, 'end')
@@ -178,12 +163,7 @@ def divide(*args):
     result()
     expression = str(Entry1.get())
     Entry2.config(state=tk.NORMAL)
-    if str(Entry2.get()) in error_list:
-        Entry1.delete(0, 'end')
-        Entry2.delete(0, 'end')
-        Entry1.insert(0, '0')
-        Entry2.insert(0, '0')
-    elif expression in ('', '0'):
+    if expression in ('', '0'):
         pass
     elif expression in operation_list:
         Entry1.delete(0, 'end')
@@ -245,12 +225,7 @@ def power():
     expression = str(Entry1.get())
     result()
     Entry2['state'] = tk.NORMAL
-    if str(Entry2.get()) in error_list:
-        Entry1.delete(0, 'end')
-        Entry2.delete(0, 'end')
-        Entry1.insert(0, '0')
-        Entry2.insert(0, '0')
-    elif expression in '':
+    if expression in '':
         pass
     elif expression in operation_list:
         Entry1.delete(0, 'end')
