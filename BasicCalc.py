@@ -37,7 +37,7 @@ if platform.system() == 'Darwin':
     Entry1.grid(row=0, columnspan=7, sticky='we')
     Entry1.insert(0, '0')
     Entry2 = tk.Entry(width=20, bg='#1B2131', fg='white', borderwidth=0, justify='right', font='Avenir 42',
-                      highlightbackground='#1B2131')
+                      highlightbackground='#1B2131', state=tk.DISABLED, disabledbackground='#1B2131')
     Entry2.grid(row=1, columnspan=7, sticky='we')
     font = "Avenir 16"
 
@@ -47,7 +47,7 @@ else:
     Entry1.grid(row=0, columnspan=7, sticky='we')
     Entry1.insert(0, '0')
     Entry2 = tk.Entry(width=20, bg='#1B2131', fg='white', borderwidth=0, justify='right', font='Avenir 32',
-                      highlightbackground='#1B2131')
+                      highlightbackground='#1B2131', state=tk.DISABLED, disabledbackground='#1B2131')
     Entry2.grid(row=1, columnspan=7, sticky='we')
     font = "Avenir"
 
@@ -209,7 +209,7 @@ def reciprocal():
             Entry2.insert(0, 'Error: Division by Zero')
         else:
             Entry2.delete(0, 'end')
-            Entry2.insert(0, round((1 / eval(expression)), 5))
+            Entry2.insert(0, round((1 / eval(expression)), 10))
     except:
         if expression != '0':
             Entry1.delete(0, 'end')
@@ -253,7 +253,7 @@ def square_root():
             Entry2.insert(0, 'Syntax Error')
         elif eval(expression) >= 0:
             Entry2.delete(0, 'end')
-            Entry2.insert(0, round(math.sqrt((eval(expression))), 5))
+            Entry2.insert(0, round(math.sqrt((eval(expression))), 10))
         elif eval(expression) < 0:
             Entry2.delete(0, 'end')
             Entry2.insert(0, cm.sqrt(eval(expression)))
@@ -373,6 +373,7 @@ def delete(*args):
         Entry2.insert(0, '0')
         Entry1.delete(0, 'end')
         Entry1.insert(0, '0')
+
     else:
         Entry1.delete(0, 'end')
         Entry1.insert(0, expression[:-1])
@@ -466,7 +467,7 @@ def memory_add():
         replacer()
     try:
         if expression not in ('', '0'):
-            memory = str(eval(expression))
+            memory = str(Entry2.get())
             Entry1.delete(0, 'end')
             Entry1.insert('end', '0')
             Entry2.delete(0, 'end')
