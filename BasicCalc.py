@@ -433,7 +433,6 @@ def history_reverse(event):
     else:
         Entry1.delete(0, 'end')
         Entry1.insert(0, import_database.at[0, 'History'])
-    Entry2.config(state=tk.DISABLED, disabledbackground='#1B2131', disabledforeground='white')
 
 
 def history_forward(event):
@@ -454,7 +453,6 @@ def history_forward(event):
     except KeyError:
         Entry1.delete(0, 'end')
         Entry1.insert(0, expression)
-    Entry2.config(state=tk.DISABLED, disabledbackground='#1B2131', disabledforeground='white')
 
 
 # Memory ADD
