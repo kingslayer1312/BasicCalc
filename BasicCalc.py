@@ -36,9 +36,9 @@ if platform.system() == 'Darwin':
                       highlightbackground='#1B2131')
     Entry1.grid(row=0, columnspan=7, sticky='we')
     Entry1.insert(0, '0')
-    Entry2 = tk.Entry(width=20, bg='#1B2131', fg='white', borderwidth=0, justify='right', font='Avenir 42',
-                      highlightbackground='#1B2131', state=tk.DISABLED, disabledbackground='#1B2131')
-    Entry2.grid(row=1, columnspan=7, sticky='we')
+    Label1 = tk.Label(width=20, bg='#1B2131', fg='white', borderwidth=0, anchor='e', font='Avenir 42',
+                      highlightbackground='#1B2131', state=tk.DISABLED)
+    Label1.grid(row=1, columnspan=7, sticky='we')
     font = "Avenir 16"
 
 else:
@@ -46,9 +46,9 @@ else:
                       highlightbackground='#1B2131')
     Entry1.grid(row=0, columnspan=7, sticky='we')
     Entry1.insert(0, '0')
-    Entry2 = tk.Entry(width=20, bg='#1B2131', fg='white', borderwidth=0, justify='right', font='Avenir 32',
-                      highlightbackground='#1B2131', state=tk.DISABLED, disabledbackground='#1B2131')
-    Entry2.grid(row=1, columnspan=7, sticky='we')
+    Label1 = tk.Label(width=20, bg='#1B2131', fg='white', borderwidth=0, anchor='e', font='Avenir 32',
+                      highlightbackground='#1B2131', state=tk.DISABLED)
+    Label1.grid(row=1, columnspan=7, sticky='we')
     font = "Avenir"
 
 # Operations List
@@ -72,17 +72,17 @@ Addition, Subtraction, Multiplication and Division
 # Result function
 
 def result():
-    if Entry2['state'] == tk.DISABLED:
+    if Label1['state'] == tk.DISABLED:
         if Entry1.get() not in ('0', ''):
-            if str(Entry2.get()) not in error_list:
-                Entry2['state'] = tk.NORMAL
+            if str(Label1['text']) not in error_list:
+                Label1['state'] = tk.NORMAL
                 Entry1.delete(0, 'end')
-                Entry1.insert(0, str(Entry2.get()))
+                Entry1.insert(0, str(Label1['text']))
             else:
-                Entry2.delete(0, 'end')
+                Label1['text'] = ''
     else:
         pass
-    Entry2['state'] = tk.DISABLED
+    Label1['state'] = tk.DISABLED
 
 
 # Replacer
@@ -102,7 +102,7 @@ def add(*args):
     global expression
     result()
     expression = str(Entry1.get())
-    Entry2.config(state=tk.NORMAL)
+    Label1.config(state=tk.NORMAL)
     if expression in ('', '0'):
         pass
     elif expression in operation_list:
@@ -121,7 +121,7 @@ def subtract(*args):
     global expression
     result()
     expression = str(Entry1.get())
-    Entry2.config(state=tk.NORMAL)
+    Label1.config(state=tk.NORMAL)
     if expression == '':
         Entry1.insert('end', '-')
     elif expression == '0':
@@ -143,7 +143,7 @@ def multiply(*args):
     global expression
     result()
     expression = str(Entry1.get())
-    Entry2.config(state=tk.NORMAL)
+    Label1.config(state=tk.NORMAL)
     if expression in ('', '0'):
         pass
     elif expression in operation_list:
@@ -162,7 +162,7 @@ def divide(*args):
     global expression
     result()
     expression = str(Entry1.get())
-    Entry2.config(state=tk.NORMAL)
+    Label1.config(state=tk.NORMAL)
     if expression in ('', '0'):
         pass
     elif expression in operation_list:
@@ -186,10 +186,9 @@ Reciprocal, power, sqrt, natural logarithm
 def reciprocal():
     global expression
     expression = str(Entry1.get())
-    Entry2.config(state=tk.NORMAL)
+    Label1.config(state=tk.NORMAL)
     if expression == '0':
-        Entry2.delete(0, 'end')
-        Entry2.insert(0, 'undefined')
+        Label1['text'] = 'undefined'
     elif '×' or '÷' or '^' or 'π' or 'e' in expression:
         expression = expression.replace('×', '*')
         expression = expression.replace('÷', '/')
@@ -200,23 +199,19 @@ def reciprocal():
         if expression in error_list_for_reciprocal:
             Entry1.delete(0, 'end')
             Entry1.insert('0', 0)
-            Entry2.delete(0, 'end')
-            Entry2.insert(0, 'Syntax Error')
+            Label1['text'] = 'Syntax Error'
         elif expression == '0':
             Entry1.delete(0, 'end')
             Entry1.insert('0', 0)
-            Entry2.delete(0, 'end')
-            Entry2.insert(0, 'Error: Division by Zero')
+            Label1['text'] = 'Error: Division by Zero'
         else:
-            Entry2.delete(0, 'end')
-            Entry2.insert(0, round((1 / eval(expression)), 10))
+            Label1['text'] = str(round((1 / eval(expression)), 10))
     except:
         if expression != '0':
             Entry1.delete(0, 'end')
             Entry1.insert('0', 0)
-            Entry2.delete(0, 'end')
-            Entry2.insert(0, 'Syntax Error')
-    Entry2.config(state=tk.DISABLED, disabledbackground='#1B2131', disabledforeground='white')
+            Label1['text'] = 'Syntax Error'
+    Label1.config(state=tk.DISABLED, disabledforeground='white')
 
 
 # Power
@@ -224,7 +219,7 @@ def power():
     global expression
     expression = str(Entry1.get())
     result()
-    Entry2['state'] = tk.NORMAL
+    Label1['state'] = tk.NORMAL
     if expression in '':
         pass
     elif expression in operation_list:
@@ -242,56 +237,48 @@ def power():
 def square_root():
     global expression
     expression = str(Entry1.get())
-    Entry2.config(state=tk.NORMAL)
+    Label1.config(state=tk.NORMAL)
     if '×' or '÷' or '^' or 'π' or 'e' in expression:
         replacer()
     try:
         if expression in error_list_for_reciprocal:
             Entry1.delete(0, 'end')
             Entry1.insert('0', 0)
-            Entry2.delete(0, 'end')
-            Entry2.insert(0, 'Syntax Error')
+            Label1['text'] = 'Syntax Error'
         elif eval(expression) >= 0:
-            Entry2.delete(0, 'end')
-            Entry2.insert(0, round(math.sqrt((eval(expression))), 10))
+            Label1['text'] = str(math.sqrt((eval(expression))), 10)
         elif eval(expression) < 0:
-            Entry2.delete(0, 'end')
-            Entry2.insert(0, cm.sqrt(eval(expression)))
+            Label1['text'] = str(cm.sqrt(eval(expression)))
     except:
         Entry1.delete(0, 'end')
         Entry1.insert('0', 0)
-        Entry2.delete(0, 'end')
-        Entry2.insert(0, 'Syntax Error')
-    Entry2.config(state=tk.DISABLED, disabledbackground='#1B2131', disabledforeground='white')
+        Label1['text'] = 'Syntax Error'
+    Label1.config(state=tk.DISABLED, disabledforeground='white')
 
 
 # Natural Log
 def natural_log():
     global expression
     expression = str(Entry1.get())
-    Entry2.config(state=tk.NORMAL)
+    Label1.config(state=tk.NORMAL)
     if '×' or '÷' or '^' or 'π' or 'e' in expression:
         replacer()
     try:
         if expression in error_list_for_reciprocal:
             Entry1.delete(0, 'end')
             Entry1.insert('0', 0)
-            Entry2.delete(0, 'end')
-            Entry2.insert(0, 'Syntax Error')
+            Label1['text'] = 'Syntax Error'
         elif eval(expression) > 0:
-            Entry2.delete(0, 'end')
-            Entry2.insert(0, math.log(eval(expression)))
+            Label1['text'] = str(math.log(eval(expression)))
         elif eval(expression) <= 0:
             Entry1.delete(0, 'end')
             Entry1.insert('0', 0)
-            Entry2.delete(0, 'end')
-            Entry2.insert(0, 'undefined')
+            Label1['text'] = 'undefined'
     except:
         Entry1.delete(0, 'end')
         Entry1.insert('0', 0)
-        Entry2.delete(0, 'end')
-        Entry2.insert(0, 'Syntax Error')
-    Entry2.config(state=tk.DISABLED, disabledbackground='#1B2131', disabledforeground='white')
+        Label1['text'] = 'Syntax Error'
+    Label1.config(state=tk.DISABLED, disabledforeground='white')
 
 
 # Miscellaneous
@@ -330,47 +317,41 @@ def equal_to(*args):
                         pass
                     else:
                         expression = expression.replace('e', str(math.e))
-                Entry2.delete(0, 'end')
-                Entry2.insert(0, eval(expression))
+                Label1['text'] = str(eval(expression))
             else:
                 y = y + [expression]
                 database['History'] = y
                 print(database)
                 database.to_csv(r'Calculations_History.csv')
-                Entry2.delete(0, 'end')
-                Entry2.insert(0, eval(expression))
+                Label1['text'] = eval(expression)
 
         elif expression[-2:] == '÷0':
-            Entry2.delete(0, 'end')
-            Entry2.insert(0, "Error: Division by Zero")
+            Label1['text'] = "Error: Division by Zero"
 
         max_index = max_index + 1
         cur_index = max_index
     except:
-        Entry2.delete(0, 'end')
-        Entry2.insert(0, 'Syntax Error')
+        Label1['text'] = 'Syntax Error'
 
-    Entry2.config(state=tk.DISABLED, disabledbackground='#1B2131', disabledforeground='white')
+    Label1.config(state=tk.DISABLED, disabledforeground='white')
 
 
 # Clear Button
 def clear(*args):
-    Entry2.config(state=tk.NORMAL)
+    Label1.config(state=tk.NORMAL)
     Entry1.delete(0, 'end')
     Entry1.insert(0, '0')
-    Entry2.delete(0, 'end')
-    Entry2.insert(0, '0')
-    Entry2.config(state=tk.DISABLED, disabledbackground='#1B2131', disabledforeground='white')
+    Label1['text'] = '0'
+    Label1.config(state=tk.DISABLED, disabledforeground='white')
 
 
 # Delete Button
 def delete(*args):
     global expression
     expression = str(Entry1.get())
-    Entry2['state'] = tk.NORMAL
+    Label1['state'] = tk.NORMAL
     if len(expression) == 1:
-        Entry2.delete(0, 'end')
-        Entry2.insert(0, '0')
+        Label1['text'] = '0'
         Entry1.delete(0, 'end')
         Entry1.insert(0, '0')
 
@@ -383,24 +364,21 @@ def delete(*args):
 def percentage():
     global expression
     expression = str(Entry1.get())
-    Entry2.config(state=tk.NORMAL)
+    Label1.config(state=tk.NORMAL)
     if '×' or '÷' or '^' or 'π' or 'e' in expression:
         replacer()
     try:
         if '÷0' in expression:
             Entry1.delete(0, 'end')
             Entry1.insert('0', 0)
-            Entry2.delete(0, 'end')
-            Entry2.insert(0, "Error: Division By Zero")
+            Label1['text'] = "Error: Division By Zero"
         else:
-            Entry2.delete(0, 'end')
-            Entry2.insert(0, eval(expression) * 100)
+            Label1['text'] = eval(expression) * 100
     except:
         Entry1.delete(0, 'end')
         Entry1.insert('0', 0)
-        Entry2.delete(0, 'end')
-        Entry2.insert(0, "Syntax Error")
-    Entry2.config(state=tk.DISABLED, disabledbackground='#1B2131', disabledforeground='white')
+        Label1['text'] = "Syntax Error"
+    Label1.config(state=tk.DISABLED, disabledforeground='white')
 
 
 # Decimal Button
@@ -423,7 +401,7 @@ History and Memory
 def history_reverse(event):
     global import_database
     global cur_index
-    Entry2.config(state=tk.NORMAL)
+    Label1.config(state=tk.NORMAL)
     import_database = pd.read_csv(r'Calculations_History.csv')
 
     if cur_index > 0:
@@ -439,7 +417,7 @@ def history_forward(event):
     global import_database
     global cur_index
     global expression
-    Entry2.config(state=tk.NORMAL)
+    Label1.config(state=tk.NORMAL)
     import_database = pd.read_csv(r'Calculations_History.csv')
     expression = str(Entry1.get())
     try:
@@ -459,25 +437,23 @@ def history_forward(event):
 def memory_add():
     global memory
     global expression
-    Entry2.config(state=tk.NORMAL)
+    Label1.config(state=tk.NORMAL)
     expression = str(Entry1.get())
     if '×' or '÷' or '^' or 'π' or 'e' in expression:
         replacer()
     try:
         if expression not in ('', '0'):
-            memory = str(Entry2.get())
+            memory = str(Label1['text'])
             Entry1.delete(0, 'end')
             Entry1.insert('end', '0')
-            Entry2.delete(0, 'end')
-            Entry2.insert('end', '0')
+            Label1['text'] = '0'
         else:
             pass
     except:
         Entry1.delete(0, 'end')
         Entry1.insert('0', 0)
-        Entry2.delete(0, 'end')
-        Entry2.insert(0, 'Syntax Error')
-    Entry2.config(state=tk.DISABLED, disabledbackground='#1B2131', disabledforeground='white')
+        Label1['text'] = 'Syntax Error'
+    Label1.config(state=tk.DISABLED, disabledforeground='white')
 
 
 # Recall from Memory
@@ -509,72 +485,63 @@ sine, cosine, tangent
 def sine_function():
     global expression
     expression = str(Entry1.get())
-    Entry2.config(state=tk.NORMAL)
+    Label1.config(state=tk.NORMAL)
     if '×' or '÷' or '^' or 'π' or 'e' in expression:
         replacer()
     try:
         if expression in error_list_for_trig:
             Entry1.delete(0, 'end')
             Entry1.insert('0', 0)
-            Entry2.delete(0, 'end')
-            Entry2.insert(0, "Syntax Error")
+            Label1['text'] = "Syntax Error"
         else:
-            Entry2.delete(0, 'end')
-            Entry2.insert(0, round(math.sin(eval(expression)), 5))
+            Label1['text'] = str(round(math.sin(eval(expression)), 5))
     except:
         Entry1.delete(0, 'end')
         Entry1.insert('0', 0)
-        Entry2.delete(0, 'end')
-        Entry2.insert(0, "Syntax Error")
-    Entry2.config(state=tk.DISABLED, disabledbackground='#1B2131', disabledforeground='white')
+        Label1['text'] = "Syntax Error"
+    Label1.config(state=tk.DISABLED, disabledforeground='white')
 
 
 # Cos function
 def cos_function():
     global expression
     expression = str(Entry1.get())
-    Entry2.config(state=tk.NORMAL)
+    Label1.config(state=tk.NORMAL)
     if '×' or '÷' or '^' or 'π' or 'e' in expression:
         replacer()
     try:
         if expression in error_list_for_trig:
             Entry1.delete(0, 'end')
             Entry1.insert('0', 0)
-            Entry2.delete(0, 'end')
-            Entry2.insert(0, "Syntax Error")
+            Label1['text'] = "Syntax Error"
         else:
-            Entry2.delete(0, 'end')
-            Entry2.insert(0, round(math.cos(eval(expression)), 5))
+            Label1['text'] = str(round(math.cos(eval(expression)), 5))
     except:
         Entry1.delete(0, 'end')
         Entry1.insert('0', 0)
-        Entry2.delete(0, 'end')
-        Entry2.insert(0, "Syntax Error")
-    Entry2.config(state=tk.DISABLED, disabledbackground='#1B2131', disabledforeground='white')
+        Label1['text'] = "Syntax Error"
+    Label1.config(state=tk.DISABLED, disabledforeground='white')
 
 
 # Tan function
 def tan_function():
     global expression
     expression = str(Entry1.get())
-    Entry2.config(state=tk.NORMAL)
+    Label1.config(state=tk.NORMAL)
     if '×' or '÷' or '^' or 'π' or 'e' in expression:
         replacer()
     try:
         if expression in error_list_for_trig:
             Entry1.delete(0, 'end')
             Entry1.insert('0', 0)
-            Entry2.delete(0, 'end')
-            Entry2.insert(0, "Syntax Error")
+            Label1['text'] = "Syntax Error"
         else:
-            Entry2.delete(0, 'end')
-            Entry2.insert(0, round(math.tan(eval(expression)), 5))
+            Label1['text'] = str(round(math.tan(eval(expression)), 5))
     except:
         Entry1.delete(0, 'end')
         Entry1.insert('0', 0)
-        Entry2.delete(0, 'end')
-        Entry2.insert(0, "Syntax Error")
-    Entry2.config(state=tk.DISABLED, disabledbackground='#1B2131', disabledforeground='white')
+        Label1['str'] = "Syntax Error"
+    Label1.config(state=tk.DISABLED, disabledforeground='white')
 
 
 '''
@@ -587,7 +554,7 @@ pi and Euler's number
 def pi_constant(*args):
     global expression
     expression = str(Entry1.get())
-    Entry2['state'] = tk.NORMAL
+    Label1['state'] = tk.NORMAL
     if expression in error_list_for_constant:
         Entry1.delete(0, 'end')
         Entry1.insert('end', 'π')
@@ -602,7 +569,7 @@ def pi_constant(*args):
 def e_constant(*args):
     global expression
     expression = str(Entry1.get())
-    Entry2['state'] = tk.NORMAL
+    Label1['state'] = tk.NORMAL
     if expression in error_list_for_constant:
         Entry1.delete(0, 'end')
         Entry1.insert('end', 'e')
@@ -623,12 +590,12 @@ Numerals/Digits
 def button1_click(*args):
     global expression
     expression = str(Entry1.get())
-    Entry2.config(state=tk.NORMAL)
+    Label1.config(state=tk.NORMAL)
     if expression in error_list_for_numbers:
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button1.cget('text'))
-    elif Entry2.cget('state') == tk.DISABLED:
-        Entry2.config(state=tk.NORMAL)
+    elif Label1.cget('state') == tk.DISABLED:
+        Label1.config(state=tk.NORMAL)
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button1.cget('text'))
     else:
@@ -638,12 +605,12 @@ def button1_click(*args):
 def button2_click(*args):
     global expression
     expression = str(Entry1.get())
-    Entry2.config(state=tk.NORMAL)
+    Label1.config(state=tk.NORMAL)
     if expression in error_list_for_numbers:
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button2.cget('text'))
-    elif Entry2.cget('state') == tk.DISABLED:
-        Entry2.config(state=tk.NORMAL)
+    elif Label1.cget('state') == tk.DISABLED:
+        Label1.config(state=tk.NORMAL)
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button2.cget('text'))
     else:
@@ -653,12 +620,12 @@ def button2_click(*args):
 def button3_click(*args):
     global expression
     expression = str(Entry1.get())
-    Entry2.config(state=tk.NORMAL)
+    Label1.config(state=tk.NORMAL)
     if expression in error_list_for_numbers:
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button3.cget('text'))
-    elif Entry2.cget('state') == tk.DISABLED:
-        Entry2.config(state=tk.NORMAL)
+    elif Label1.cget('state') == tk.DISABLED:
+        Label1.config(state=tk.NORMAL)
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button3.cget('text'))
     else:
@@ -668,12 +635,12 @@ def button3_click(*args):
 def button4_click(*args):
     global expression
     expression = str(Entry1.get())
-    Entry2.config(state=tk.NORMAL)
+    Label1.config(state=tk.NORMAL)
     if expression in error_list_for_numbers:
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button4.cget('text'))
-    elif Entry2.cget('state') == tk.DISABLED:
-        Entry2.config(state=tk.NORMAL)
+    elif Label1.cget('state') == tk.DISABLED:
+        Label1.config(state=tk.NORMAL)
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button4.cget('text'))
     else:
@@ -683,12 +650,12 @@ def button4_click(*args):
 def button5_click(*args):
     global expression
     expression = str(Entry1.get())
-    Entry2.config(state=tk.NORMAL)
+    Label1.config(state=tk.NORMAL)
     if expression in error_list_for_numbers:
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button5.cget('text'))
-    elif Entry2.cget('state') == tk.DISABLED:
-        Entry2.config(state=tk.NORMAL)
+    elif Label1.cget('state') == tk.DISABLED:
+        Label1.config(state=tk.NORMAL)
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button5.cget('text'))
     else:
@@ -698,12 +665,12 @@ def button5_click(*args):
 def button6_click(*args):
     global expression
     expression = str(Entry1.get())
-    Entry2.config(state=tk.NORMAL)
+    Label1.config(state=tk.NORMAL)
     if expression in error_list_for_numbers:
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button6.cget('text'))
-    elif Entry2.cget('state') == tk.DISABLED:
-        Entry2.config(state=tk.NORMAL)
+    elif Label1.cget('state') == tk.DISABLED:
+        Label1.config(state=tk.NORMAL)
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button6.cget('text'))
     else:
@@ -713,12 +680,12 @@ def button6_click(*args):
 def button7_click(*args):
     global expression
     expression = str(Entry1.get())
-    Entry2.config(state=tk.NORMAL)
+    Label1.config(state=tk.NORMAL)
     if expression in error_list_for_numbers:
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button7.cget('text'))
-    elif Entry2.cget('state') == tk.DISABLED:
-        Entry2.config(state=tk.NORMAL)
+    elif Label1.cget('state') == tk.DISABLED:
+        Label1.config(state=tk.NORMAL)
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button7.cget('text'))
     else:
@@ -728,12 +695,12 @@ def button7_click(*args):
 def button8_click(*args):
     global expression
     expression = str(Entry1.get())
-    Entry2.config(state=tk.NORMAL)
+    Label1.config(state=tk.NORMAL)
     if expression in error_list_for_numbers:
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button8.cget('text'))
-    elif Entry2.cget('state') == tk.DISABLED:
-        Entry2.config(state=tk.NORMAL)
+    elif Label1.cget('state') == tk.DISABLED:
+        Label1.config(state=tk.NORMAL)
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button8.cget('text'))
     else:
@@ -743,12 +710,12 @@ def button8_click(*args):
 def button9_click(*args):
     global expression
     expression = str(Entry1.get())
-    Entry2.config(state=tk.NORMAL)
+    Label1.config(state=tk.NORMAL)
     if expression in error_list_for_numbers:
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button9.cget('text'))
-    elif Entry2.cget('state') == tk.DISABLED:
-        Entry2.config(state=tk.NORMAL)
+    elif Label1.cget('state') == tk.DISABLED:
+        Label1.config(state=tk.NORMAL)
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button9.cget('text'))
     else:
@@ -758,12 +725,12 @@ def button9_click(*args):
 def button0_click(*args):
     global expression
     expression = str(Entry1.get())
-    Entry2.config(state=tk.NORMAL)
+    Label1.config(state=tk.NORMAL)
     if expression in error_list_for_numbers:
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button0.cget('text'))
-    elif Entry2.cget('state') == tk.DISABLED:
-        Entry2.config(state=tk.NORMAL)
+    elif Label1.cget('state') == tk.DISABLED:
+        Label1.config(state=tk.NORMAL)
         Entry1.delete(0, 'end')
         Entry1.insert('end', Button0.cget('text'))
     else:
