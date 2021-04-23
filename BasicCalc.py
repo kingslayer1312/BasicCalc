@@ -8,9 +8,8 @@ BasicCalc
 import tkinter as tk
 import math
 import cmath as cm
-import platform
+from platform import system
 from tkmacosx import Button
-import pandas as pd
 
 # Main Window
 root = tk.Tk()
@@ -30,8 +29,12 @@ cur_index = 0
 global expression
 expression = ''
 
+global database
+database = ()
+
+
 # Cross-platform functionality
-if platform.system() == 'Darwin':
+if system() == 'Darwin':
     Entry1 = tk.Entry(bg='#1B2131', width=28, fg='white', borderwidth=0, justify='right', font='Avenir 30',
                       highlightbackground='#1B2131')
     Entry1.grid(row=0, columnspan=7, sticky='we')
@@ -296,19 +299,16 @@ def equal_to(*args):
     global y
 
     expression = str(Entry1.get())
-    database = pd.DataFrame()
 
     try:
         if expression[-2:] != '÷0':
             if '×' or '÷' or '^' or 'π' or 'e' in expression:
                 y = y + [expression]
-                database['History'] = y
-                print(database)
+                database = tuple(y)
                 expression = expression.replace('×', '*')
                 expression = expression.replace('÷', '/')
                 expression = expression.replace('^', '**')
                 expression = expression.replace('π', str(math.pi))
-                database.to_csv(r'Calculations_History.csv')
                 if 'e' in expression:
                     x = expression.index('e')
                     if expression[0] == 'e':
@@ -320,9 +320,7 @@ def equal_to(*args):
                 Label1['text'] = str(eval(expression))
             else:
                 y = y + [expression]
-                database['History'] = y
-                print(database)
-                database.to_csv(r'Calculations_History.csv')
+                database += (y)
                 Label1['text'] = eval(expression)
 
         elif expression[-2:] == '÷0':
@@ -399,36 +397,34 @@ History and Memory
 
 # History Recalling
 def history_reverse(event):
-    global import_database
+    global database
     global cur_index
     Label1.config(state=tk.NORMAL)
-    import_database = pd.read_csv(r'Calculations_History.csv')
 
     if cur_index > 0:
         Entry1.delete(0, 'end')
-        Entry1.insert(0, import_database.at[cur_index - 1, 'History'])
+        Entry1.insert(0, database[cur_index - 1])
         cur_index = cur_index - 1
     else:
         Entry1.delete(0, 'end')
-        Entry1.insert(0, import_database.at[0, 'History'])
+        Entry1.insert(0, database[0])
 
 
 def history_forward(event):
-    global import_database
+    global database
     global cur_index
     global expression
     Label1.config(state=tk.NORMAL)
-    import_database = pd.read_csv(r'Calculations_History.csv')
     expression = str(Entry1.get())
     try:
-        if cur_index < len(import_database) - 1:
+        if cur_index < len(database) - 1:
             Entry1.delete(0, 'end')
-            Entry1.insert(0, import_database.at[cur_index + 1, 'History'])
+            Entry1.insert(0, database[cur_index + 1])
             cur_index = cur_index + 1
         else:
             Entry1.delete(0, 'end')
-            Entry1.insert(0, import_database.at[cur_index, 'History'])
-    except KeyError:
+            Entry1.insert(0, database[cur_index])
+    except IndexError:
         Entry1.delete(0, 'end')
         Entry1.insert(0, expression)
 
