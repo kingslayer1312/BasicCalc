@@ -15,10 +15,10 @@ from tkmacosx import Button
 root = tk.Tk()
 root.title("BasicCalc")
 root.resizable(0, 0)
-root.configure(bg='#1B2131')
+root.configure(bg='#1C2833')
 root.geometry("+500+150")
 
-# Variables
+# Globals
 
 global max_index
 max_index = 0
@@ -35,22 +35,22 @@ database = ()
 
 # Cross-platform functionality
 if system() == 'Darwin':
-    Entry1 = tk.Entry(bg='#1B2131', width=28, fg='white', borderwidth=0, justify='right', font='Avenir 30',
-                      highlightbackground='#1B2131')
+    Entry1 = tk.Entry(bg='#1C2833', width=28, fg='white', borderwidth=0, justify='right', font='Avenir 30',
+                      highlightbackground='#1C2833')
     Entry1.grid(row=0, columnspan=7, sticky='we')
     Entry1.insert(0, '0')
-    Label1 = tk.Label(width=20, bg='#1B2131', fg='white', borderwidth=0, anchor='e', font='Avenir 42',
-                      highlightbackground='#1B2131', state=tk.DISABLED)
+    Label1 = tk.Label(width=20, bg='#1C2833', fg='white', borderwidth=0, anchor='e', font='Avenir 42',
+                      highlightbackground='#1C2833', state=tk.DISABLED)
     Label1.grid(row=1, columnspan=7, sticky='we')
     font = "Avenir 16"
 
 else:
-    Entry1 = tk.Entry(width=32, bg='#1B2131', fg='white', borderwidth=0, justify='right', font='Avenir 20',
-                      highlightbackground='#1B2131')
+    Entry1 = tk.Entry(width=32, bg='#1C2833', fg='white', borderwidth=0, justify='right', font='Avenir 20',
+                      highlightbackground='#1C2833')
     Entry1.grid(row=0, columnspan=7, sticky='we')
     Entry1.insert(0, '0')
-    Label1 = tk.Label(width=20, bg='#1B2131', fg='white', borderwidth=0, anchor='e', font='Avenir 32',
-                      highlightbackground='#1B2131', state=tk.DISABLED)
+    Label1 = tk.Label(width=20, bg='#1C2833', fg='white', borderwidth=0, anchor='e', font='Avenir 32',
+                      highlightbackground='#1C2833', state=tk.DISABLED)
     Label1.grid(row=1, columnspan=7, sticky='we')
     font = "Avenir"
 
@@ -739,139 +739,139 @@ User Interface
 
 # Numbers
 
-Button1 = Button(root, font=font, text="1", height=80, width=80, bg='#1B2131', fg='white',
-                 activebackground='#171A2F', activeforeground='white', command=button1_click)
+Button1 = Button(root, font=font, text="1", height=80, width=80, bg='#1C2833', fg='white',
+                 activebackground='#17202A', activeforeground='white', command=button1_click)
 Button1.grid(column=3, row=5)
 
-Button2 = Button(root, font=font, text="2", height=80, width=80, bg='#1B2131', fg='white',
-                 activebackground='#171A2F', activeforeground='white', command=button2_click)
+Button2 = Button(root, font=font, text="2", height=80, width=80, bg='#1C2833', fg='white',
+                 activebackground='#17202A', activeforeground='white', command=button2_click)
 Button2.grid(column=4, row=5)
 
-Button3 = Button(root, font=font, text="3", height=80, width=80, bg='#1B2131', fg='white',
-                 activebackground='#171A2F', activeforeground='white', command=button3_click)
+Button3 = Button(root, font=font, text="3", height=80, width=80, bg='#1C2833', fg='white',
+                 activebackground='#17202A', activeforeground='white', command=button3_click)
 Button3.grid(column=5, row=5)
 
-Button4 = Button(root, font=font, text="4", height=80, width=80, bg='#1B2131', fg='white',
-                 activebackground='#171A2F', activeforeground='white', command=button4_click)
+Button4 = Button(root, font=font, text="4", height=80, width=80, bg='#1C2833', fg='white',
+                 activebackground='#17202A', activeforeground='white', command=button4_click)
 Button4.grid(column=3, row=4)
 
-Button5 = Button(root, font=font, text="5", height=80, width=80, bg='#1B2131', fg='white',
-                 activebackground='#171A2F', activeforeground='white', command=button5_click)
+Button5 = Button(root, font=font, text="5", height=80, width=80, bg='#1C2833', fg='white',
+                 activebackground='#17202A', activeforeground='white', command=button5_click)
 Button5.grid(column=4, row=4)
 
-Button6 = Button(root, font=font, text="6", height=80, width=80, bg='#1B2131', fg='white',
-                 activebackground='#171A2F', activeforeground='white', command=button6_click)
+Button6 = Button(root, font=font, text="6", height=80, width=80, bg='#1C2833', fg='white',
+                 activebackground='#17202A', activeforeground='white', command=button6_click)
 Button6.grid(column=5, row=4)
 
-Button7 = Button(root, font=font, text="7", height=80, width=80, bg='#1B2131', fg='white',
-                 activebackground='#171A2F', activeforeground='white', command=button7_click)
+Button7 = Button(root, font=font, text="7", height=80, width=80, bg='#1C2833', fg='white',
+                 activebackground='#17202A', activeforeground='white', command=button7_click)
 Button7.grid(column=3, row=3)
 
-Button8 = Button(root, font=font, text="8", height=80, width=80, bg='#1B2131', fg='white',
-                 activebackground='#171A2F', activeforeground='white', command=button8_click)
+Button8 = Button(root, font=font, text="8", height=80, width=80, bg='#1C2833', fg='white',
+                 activebackground='#17202A', activeforeground='white', command=button8_click)
 Button8.grid(column=4, row=3)
 
-Button9 = Button(root, font=font, text="9", height=80, width=80, bg='#1B2131', fg='white',
-                 activebackground='#171A2F', activeforeground='white', command=button9_click)
+Button9 = Button(root, font=font, text="9", height=80, width=80, bg='#1C2833', fg='white',
+                 activebackground='#17202A', activeforeground='white', command=button9_click)
 Button9.grid(column=5, row=3)
 
-Button0 = Button(root, font=font, text="0", height=80, width=80, bg='#1B2131', fg='white',
-                 activebackground='#171A2F', activeforeground='white', command=button0_click)
+Button0 = Button(root, font=font, text="0", height=80, width=80, bg='#1C2833', fg='white',
+                 activebackground='#17202A', activeforeground='white', command=button0_click)
 Button0.grid(column=4, row=6)
 
 # Special constants
 
-pi_button = Button(root, font=font, text="π", height=80, width=80, bg='#1B2131', fg='white',
-                   activebackground='#171A2F', activeforeground='white', command=pi_constant)
+pi_button = Button(root, font=font, text="π", height=80, width=80, bg='#1C2833', fg='white',
+                   activebackground='#17202A', activeforeground='white', command=pi_constant)
 pi_button.grid(column=2, row=6)
 
-e_button = Button(root, font=font, text="e", height=80, width=80, bg='#1B2131', fg='white',
-                  activebackground='#171A2F', activeforeground='white', command=e_constant)
+e_button = Button(root, font=font, text="e", height=80, width=80, bg='#1C2833', fg='white',
+                  activebackground='#17202A', activeforeground='white', command=e_constant)
 e_button.grid(column=1, row=6)
 
 # Decimal Point
 
-Button_Decimal = Button(root, font=font, text=".", height=80, width=80, bg='#1B2131', fg='white',
-                        activebackground='#171A2F', activeforeground='white', command=decimal)
+Button_Decimal = Button(root, font=font, text=".", height=80, width=80, bg='#1C2833', fg='white',
+                        activebackground='#17202A', activeforeground='white', command=decimal)
 Button_Decimal.grid(column=3, row=6)
 
 # Operations
-add_button = Button(root, font=font, text="+", height=80, width=80, bg='orange', activebackground='#FFAE00',
-                    activeforeground='black', command=add)
+add_button = Button(root, font=font, text="+", height=80, width=80, bg='#17202A',  fg='white', activebackground='#1C2833',
+                    activeforeground='white', command=add)
 add_button.grid(column=6, row=2)
 
-subtract_button = Button(root, font=font, text="–", height=80, width=80, bg='orange', activebackground='#FFAE00',
-                         activeforeground='black', command=subtract)
+subtract_button = Button(root, font=font, text="–", height=80, width=80, bg='#17202A',  fg='white', activebackground='#1C2833',
+                         activeforeground='white', command=subtract)
 subtract_button.grid(column=6, row=3)
 
-multiply_button = Button(root, font=font, text="×", height=80, width=80, bg='orange', activebackground='#FFAE00',
-                         activeforeground='black', command=multiply)
+multiply_button = Button(root, font=font, text="×", height=80, width=80, bg='#17202A',  fg='white', activebackground='#1C2833',
+                         activeforeground='white', command=multiply)
 multiply_button.grid(column=6, row=4)
 
-divide_button = Button(root, font=font, text="÷", height=80, width=80, bg='orange',
-                       activebackground='#FFAE00', activeforeground='black', command=divide)
+divide_button = Button(root, font=font, text="÷", height=80, width=80, bg='#17202A',  fg='white',
+                       activebackground='#1C2833', activeforeground='white', command=divide)
 divide_button.grid(column=6, row=5)
 
-equal_button = Button(root, font=font, text="=", height=80, width=80, bg='#1B2131', fg='white',
-                      activebackground='#171A2F', activeforeground='white', command=equal_to)
+equal_button = Button(root, font=font, text="=", height=80, width=80, bg='#1C2833', fg='white',
+                      activebackground='#17202A', activeforeground='white', command=equal_to)
 equal_button.grid(column=5, row=6)
 
-percentage_button = Button(root, font=font, text="%", height=80, width=80, bg='orange',
-                           activebackground='#FFAE00', activeforeground='black', command=percentage)
+percentage_button = Button(root, font=font, text="%", height=80, width=80, bg='#17202A', fg='white',
+                           activebackground='#1C2833', activeforeground='white', command=percentage)
 percentage_button.grid(column=6, row=6)
 
 # Clear
 
-clear_button = Button(root, font=font, text="CLR", height=80, width=80, bg='#1B2131', fg='white',
-                      activebackground='#171A2F', activeforeground='white', command=clear)
+clear_button = Button(root, font=font, text="CLR", height=80, width=80, bg='#1C2833', fg='white',
+                      activebackground='#17202A', activeforeground='white', command=clear)
 clear_button.grid(column=2, row=2)
 
 # Delete
 
-delete_button = Button(root, font=font, text='⇦', height=80, width=80, bg='#1B2131', fg='white',
-                       activebackground='#171A2F', activeforeground='white', command=delete)
+delete_button = Button(root, font=font, text='⇦', height=80, width=80, bg='#1C2833', fg='white',
+                       activebackground='#17202A', activeforeground='white', command=delete)
 delete_button.grid(column=5, row=2)
 
 # Memory
 
-memory_add = Button(root, font=font, text="M+", height=80, width=80, bg='#1B2131', fg='white',
-                    activebackground='#171A2F', activeforeground='white', command=memory_add)
+memory_add = Button(root, font=font, text="M+", height=80, width=80, bg='#1C2833', fg='white',
+                    activebackground='#17202A', activeforeground='white', command=memory_add)
 memory_add.grid(column=3, row=2)
 
-memory_recall = Button(root, font=font, text="MR", height=80, width=80, bg='#1B2131', fg='white',
-                       activebackground='#171A2F', activeforeground='white', command=memory_recall)
+memory_recall = Button(root, font=font, text="MR", height=80, width=80, bg='#1C2833', fg='white',
+                       activebackground='#17202A', activeforeground='white', command=memory_recall)
 memory_recall.grid(column=4, row=2)
 
 # Trigonometric functions
 
-sin_button = Button(root, font=font, text="sin", height=80, width=80, bg='#1B2131', fg='white',
-                    activebackground='#171A2F', activeforeground='white', command=sine_function)
+sin_button = Button(root, font=font, text="sin", height=80, width=80, bg='#1C2833', fg='white',
+                    activebackground='#17202A', activeforeground='white', command=sine_function)
 sin_button.grid(column=2, row=3)
 
-cos_button = Button(root, font=font, text="cos", height=80, width=80, bg='#1B2131', fg='white',
-                    activebackground='#171A2F', activeforeground='white', command=cos_function)
+cos_button = Button(root, font=font, text="cos", height=80, width=80, bg='#1C2833', fg='white',
+                    activebackground='#17202A', activeforeground='white', command=cos_function)
 cos_button.grid(column=2, row=4)
 
-tan_button = Button(root, font=font, text="tan", height=80, width=80, bg='#1B2131', fg='white',
-                    activebackground='#171A2F', activeforeground='white', command=tan_function)
+tan_button = Button(root, font=font, text="tan", height=80, width=80, bg='#1C2833', fg='white',
+                    activebackground='#17202A', activeforeground='white', command=tan_function)
 tan_button.grid(column=2, row=5)
 
 # Additional Math Functions
 
-reciprocal_button = Button(root, font=font, text='1/x', height=80, width=80, bg='#1B2131', fg='white',
-                           activebackground='#171A2F', activeforeground='white', command=reciprocal)
+reciprocal_button = Button(root, font=font, text='1/x', height=80, width=80, bg='#1C2833', fg='white',
+                           activebackground='#17202A', activeforeground='white', command=reciprocal)
 reciprocal_button.grid(column=1, row=2)
 
-power_button = Button(root, font=font, text="x\u02b8", height=80, width=80, bg='#1B2131', fg='white',
-                      activebackground='#171A2F', activeforeground='white', command=power)
+power_button = Button(root, font=font, text="x\u02b8", height=80, width=80, bg='#1C2833', fg='white',
+                      activebackground='#17202A', activeforeground='white', command=power)
 power_button.grid(column=1, row=3)
 
-sqrt_button = Button(root, font=font, text="√x", height=80, width=80, bg='#1B2131', fg='white',
-                     activebackground='#171A2F', activeforeground='white', command=square_root)
+sqrt_button = Button(root, font=font, text="√x", height=80, width=80, bg='#1C2833', fg='white',
+                     activebackground='#17202A', activeforeground='white', command=square_root)
 sqrt_button.grid(column=1, row=4)
 
-naturallog_button = Button(root, font=font, text="ln", height=80, width=80, bg='#1B2131', fg='white',
-                           activebackground='#171A2F', activeforeground='white', command=natural_log)
+naturallog_button = Button(root, font=font, text="ln", height=80, width=80, bg='#1C2833', fg='white',
+                           activebackground='#17202A', activeforeground='white', command=natural_log)
 naturallog_button.grid(column=1, row=5)
 
 # Binding keys
